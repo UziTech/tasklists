@@ -17,7 +17,6 @@
 		width: 1em;
 		direction: rtl;
 		overflow: hidden;
-		background-color: #ddd;
 		height: 1.3em;
 
 		button,
@@ -51,6 +50,8 @@
 		&:hover {
 			width: auto;
 			overflow: visible;
+			background-color: #ddd;
+			z-index: 10;
 
 			.move,
 			button,
