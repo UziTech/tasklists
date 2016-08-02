@@ -1,5 +1,6 @@
 .task {
 	position: relative;
+	padding-right: 1em;
 	cursor: pointer;
 
 	&:nth-child(even) {
@@ -8,6 +9,7 @@
 
 	.controls {
 		display: flex;
+		align-items: flex-start;
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -17,6 +19,7 @@
 
 		button,
 		input {
+			// flex: 0 0;
 			cursor: pointer;
 			opacity: 0;
 			transition: opacity 0.2s;
@@ -28,12 +31,41 @@
 			width: 1em;
 		}
 
+		.move-buttons {
+			width: 2em;
+			height: 1.3em;
+
+			.move{
+				text-align: center;
+			}
+
+			button {
+				width: 100%;
+				display: block;
+			}
+		}
+
 		&:hover {
 			width: auto;
 
+			.move,
 			button,
 			input {
 				opacity: 1;
+			}
+
+			.move-buttons {
+				button {
+					opacity: 0;
+				}
+
+				&:hover {
+					height: auto;
+
+					button {
+						opacity: 1;
+					}
+				}
 			}
 		}
 	}

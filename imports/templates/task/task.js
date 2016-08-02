@@ -15,78 +15,29 @@ Template.task.events({
 	"change .done" (e) {
 		Meteor.call("tasks.done", this._id, e.target.checked);
 	},
-	"click .now" () {
+	"click .move-to" (e) {
 		if (!this.done) {
-			const start = Dates.today();
-			const due = Dates.addDays(this.due, Dates.daysDiff(start, this.start));
-
-			Meteor.call("tasks.update", this._id, start, due);
-		}
-	},
-	"click .advance" (e) {
-		if (!this.done) {
-			const list = e.target.closest(".list");
-			if (!list) {
-				throw "Not in a list! Something went wrong!";
-			}
-
 			let start;
-			switch (list.id) {
-				case "tomorrow":
+			switch (e.target.dataset.list) {
+				case "today":
 					start = Dates.today();
+					break;
+				case "tomorrow":
+					start = Dates.tomorrow();
 					break;
 				case "thisweek":
-					start = Dates.tomorrow();
-					break;
-				case "nextweek":
-					start = Dates.thisWeek() || Dates.tomorrow();
-					break;
-				case "thismonth":
-					start = Dates.nextWeek();
-					break;
-				case "nextmonth":
-					start = Dates.thisMonth() || Dates.nextWeek();
-					break;
-				case "later":
-					start = Dates.nextMonth();
-					break;
-				default:
-					return;
-			}
-
-			const due = Dates.addDays(this.due, Dates.daysDiff(start, this.start));
-
-			Meteor.call("tasks.update", this._id, start, due);
-		}
-	},
-	"click .postpone" (e) {
-		if (!this.done) {
-			const list = e.target.closest(".list");
-			if (!list) {
-				throw "Not in a list! Something went wrong!";
-			}
-
-			let start;
-			switch (list.id) {
-				case "late":
-					start = Dates.today();
-					break;
-				case "today":
-					start = Dates.tomorrow();
-					break;
-				case "tomorrow":
 					start = Dates.thisWeek() || Dates.nextWeek();
 					break;
-				case "thisweek":
+				case "nextweek":
 					start = Dates.nextWeek();
 					break;
-				case "nextweek":
+				case "thismonth":
 					start = Dates.thisMonth() || Dates.nextMonth();
 					break;
-				case "thismonth":
+				case "nextmonth":
 					start = Dates.nextMonth();
 					break;
-				case "nextmonth":
+				case "later":
 					start = Dates.later();
 					break;
 				default:

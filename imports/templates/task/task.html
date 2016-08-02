@@ -4,14 +4,19 @@
 			{{name}}
 		</div>
 		<div class="controls">
-			{{#unless done}}
 			<span class="ellip">&vellip;</span>
-			{{/unless}}
 			<button class="delete" title="Delete">&times;</button>
 			{{#unless done}}
-			<button class="postpone" title="Postpone">&rarr;</button>
-			<button class="now" title="Today">&darr;</button>
-			<button class="advance" title="Advance">&larr;</button>
+				<span class="move-buttons">
+					<div class="move" title="Move">&harr;</div>
+					<button class="move-to" data-list="today" title="Today">T</button>
+					<button class="move-to" data-list="tomorrow" title="Tomorrow">T</button>
+					<button class="move-to" data-list="thisweek" title="This Week">W</button>
+					<button class="move-to" data-list="nextweek" title="Next Week">W</button>
+					<button class="move-to" data-list="thismonth" title="This Month">M</button>
+					<button class="move-to" data-list="nextmonth" title="Next Month">M</button>
+					<button class="move-to" data-list="later" title="Later">L</button>
+				</span>
 			{{/unless}}
 			<input type="checkbox" class="done" checked="{{done}}" title="Done" />
 		</div>
