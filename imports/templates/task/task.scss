@@ -13,12 +13,19 @@
 		right: 0;
 		width: 1em;
 		direction: rtl;
+		overflow: hidden;
 
 		button,
 		input {
 			cursor: pointer;
 			opacity: 0;
 			transition: opacity 0.2s;
+		}
+
+		.ellip {
+			flex-shrink: 0;
+			text-align: center;
+			width: 1em;
 		}
 
 		&:hover {
