@@ -10,16 +10,21 @@
 		border-top: 1px solid #333;
 		border-right: 1px solid #333;
 		writing-mode: vertical-rl;
-		padding: 7px;
 		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
 
 		h1 {
 			cursor: pointer;
-			margin: 0;
+			margin: 7px;
+			text-transform: capitalize;
 		}
 
-		.task {
+		.tasks {
+			flex-grow: 1;
 			display: none;
+			overflow-y: auto;
+			padding: 7px;
 		}
 
 		&:last-child {
@@ -38,7 +43,7 @@
 				}
 			}
 
-			.task {
+			.tasks {
 				display: block;
 			}
 		}

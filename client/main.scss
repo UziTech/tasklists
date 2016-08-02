@@ -8,6 +8,15 @@ header {
 	text-align: right;
 	padding: 10px;
 	height: 30px;
+
+	#login-buttons {
+		float: right;
+	}
+
+	h1 {
+		margin: 0;
+		text-align: center;
+	}
 }
 
 main {

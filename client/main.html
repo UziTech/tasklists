@@ -5,9 +5,15 @@
 
 <body>
 	<header>
-		{{#if currentUser}} {{> addTask}} {{/if}} {{> loginButtons}}
+		{{#if currentUser}}
+			{{> addTask}}
+		{{/if}}
+		{{> loginButtons}}
+		<h1>tasklists</h1>
 	</header>
 	<main>
-		{{#if currentUser}} {{> lists}} {{/if}}
+		{{#if currentUser}}
+			{{> lists}}
+		{{/if}}
 	</main>
 </body>
