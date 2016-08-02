@@ -1,0 +1,46 @@
+#lists {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	overflow-x: auto;
+
+	.list {
+		flex: 1 0 50px;
+		border-top: 1px solid #333;
+		border-right: 1px solid #333;
+		writing-mode: vertical-rl;
+		padding: 7px;
+		box-sizing: border-box;
+		cursor: pointer;
+
+		h1 {
+			margin: 0;
+		}
+
+		.task {
+			display: none;
+		}
+
+		&:last-child {
+			border-right: 0;
+		}
+
+		&.active {
+			flex: 2 0 200px;
+			writing-mode: horizontal-tb;
+
+			h1 {
+				text-align: center;
+
+				.count {
+					display: none;
+				}
+			}
+
+			.task {
+				display: flex;
+			}
+		}
+	}
+}

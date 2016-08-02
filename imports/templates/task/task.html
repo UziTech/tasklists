@@ -1,0 +1,19 @@
+<template name="task">
+	<div class="task" data-id="{{_id}}">
+		<div class="name">
+			{{name}}
+		</div>
+		<div class="controls">
+			{{#unless done}}
+			<span class="ellip">&vellip;</span>
+			{{/unless}}
+			<button class="delete">&times;</button>
+			{{#unless done}}
+			<button class="postpone" title="Postpone">&rarr;</button>
+			<button class="now" title="Today">&darr;</button>
+			<button class="advance" title="Advance">&larr;</button>
+			{{/unless}}
+			<input type="checkbox" class="done" checked="{{done}}" title="Done" />
+		</div>
+	</div>
+</template>

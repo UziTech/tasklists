@@ -1,0 +1,12 @@
+<head>
+	<title>tasklists</title>
+</head>
+
+<body>
+	<header>
+		{{#if currentUser}} {{> addTask}} {{/if}} {{> loginButtons}}
+	</header>
+	<main>
+		{{#if currentUser}} {{> lists}} {{/if}}
+	</main>
+</body>

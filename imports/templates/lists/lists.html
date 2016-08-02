@@ -1,0 +1,31 @@
+<template name="lists">
+	<div id="lists">
+		<div id="done" class="list">
+			<h1><span class="count">{{doneTasks.count}}</span> Done</h1> {{#each doneTasks}} {{> task}} {{/each}}
+		</div>
+		<div id="late" class="list {{#if lateTasks.count}} active {{/if}}">
+			<h1><span class="count">{{lateTasks.count}}</span> Late</h1> {{#each lateTasks}} {{> task}} {{/each}}
+		</div>
+		<div id="today" class="list active">
+			<h1><span class="count">{{todayTasks.count}}</span> Today</h1> {{#each todayTasks}} {{> task}} {{/each}}
+		</div>
+		<div id="tomorrow" class="list active">
+			<h1><span class="count">{{tomorrowTasks.count}}</span> Tomorrow</h1> {{#each tomorrowTasks}} {{> task}} {{/each}}
+		</div>
+		<div id="thisweek" class="list">
+			<h1><span class="count">{{thisweekTasks.count}}</span> This Week</h1> {{#each thisweekTasks}} {{> task}} {{/each}}
+		</div>
+		<div id="nextweek" class="list">
+			<h1><span class="count">{{nextweekTasks.count}}</span> Next Week</h1> {{#each nextweekTasks}} {{> task}} {{/each}}
+		</div>
+		<div id="thismonth" class="list">
+			<h1><span class="count">{{thismonthTasks.count}}</span> This Month</h1> {{#each thismonthTasks}} {{> task}} {{/each}}
+		</div>
+		<div id="nextmonth" class="list">
+			<h1><span class="count">{{nextmonthTasks.count}}</span> Next Month</h1> {{#each nextmonthTasks}} {{> task}} {{/each}}
+		</div>
+		<div id="later" class="list">
+			<h1><span class="count">{{laterTasks.count}}</span> Later</h1> {{#each laterTasks}} {{> task}} {{/each}}
+		</div>
+	</div>
+</template>

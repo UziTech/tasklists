@@ -1,0 +1,15 @@
+body {
+	padding: 0;
+	margin: 0;
+	font-family: sans-serif;
+}
+
+header {
+	text-align: right;
+	padding: 10px;
+	height: 30px;
+}
+
+main {
+	height: calc(100vh - 50px);
+}

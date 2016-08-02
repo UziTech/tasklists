@@ -1,0 +1,37 @@
+.task {
+	position: relative;
+	cursor: pointer;
+
+	&:nth-child(even) {
+		background-color: #eee;
+	}
+
+	.controls {
+		display: flex;
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 1em;
+		direction: rtl;
+
+		button,
+		input {
+			cursor: pointer;
+			opacity: 0;
+			transition: opacity 0.2s;
+		}
+
+		&:hover {
+			width: auto;
+
+			button,
+			input {
+				opacity: 1;
+			}
+		}
+	}
+
+	&:hover {
+		background-color: #ddd;
+	}
+}
