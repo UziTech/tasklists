@@ -2,6 +2,7 @@
 	position: relative;
 	padding-right: 1em;
 	cursor: pointer;
+	min-height: 1.3em;
 
 	&:nth-child(even) {
 		background-color: #eee;
@@ -16,6 +17,8 @@
 		width: 1em;
 		direction: rtl;
 		overflow: hidden;
+		background-color: #ddd;
+		height: 1.3em;
 
 		button,
 		input {
@@ -35,7 +38,7 @@
 			width: 2em;
 			height: 1.3em;
 
-			.move{
+			.move {
 				text-align: center;
 			}
 
@@ -47,6 +50,7 @@
 
 		&:hover {
 			width: auto;
+			overflow: visible;
 
 			.move,
 			button,
