@@ -169,6 +169,15 @@ Template.lists.helpers({
 Template.lists.events({
 	"click .list h1" (e) {
 		const list = e.target.closest(".list");
-		list.classList.toggle("active");
+		var active = list.classList.contains("active");
+		var userOpen = list.classList.contains("user-open");
+		var userClosed = list.classList.contains("user-closed");
+		if (userOpen || (active && !userClosed)) {
+			list.classList.remove("user-open");
+			list.classList.add("user-closed");
+		} else {
+			list.classList.remove("user-closed");
+			list.classList.add("user-open");
+		}
 	}
 });

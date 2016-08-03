@@ -1,11 +1,16 @@
 .task {
 	position: relative;
-	padding-right: 1em;
+	padding: 5px 1em 5px 5px;
 	cursor: pointer;
 	min-height: 1.3em;
+	font-family: monospace;
 
 	&:nth-child(even) {
 		background-color: #eee;
+	}
+
+	&:nth-child(odd) {
+		background-color: #ddd;
 	}
 
 	.controls {
@@ -50,7 +55,7 @@
 		&:hover {
 			width: auto;
 			overflow: visible;
-			background-color: #ddd;
+			background-color: #ccc;
 			z-index: 10;
 
 			.move,
@@ -76,6 +81,6 @@
 	}
 
 	&:hover {
-		background-color: #ddd;
+		background-color: #ccc;
 	}
 }

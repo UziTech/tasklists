@@ -31,7 +31,8 @@
 			border-right: 0;
 		}
 
-		&.active {
+		&.active:not(.user-closed),
+		&.user-open {
 			flex: 2 0 200px;
 			writing-mode: horizontal-tb;
 
