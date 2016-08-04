@@ -19,6 +19,8 @@ if (Meteor.isServer) {
 			owner: this.userId,
 		});
 	});
+} else if (Meteor.isClient) {
+	Meteor.subscribe("tasks");
 }
 
 Meteor.methods({
