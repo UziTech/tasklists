@@ -8,6 +8,10 @@ import Dates from "../../util/Dates.js";
 import "./task.html";
 import "./task.scss";
 
+Template.task.onRendered(function () {
+	$(this.find(".name")).toTextarea();
+});
+
 // Template.task.helpers({
 // });
 
@@ -52,7 +56,7 @@ Template.task.events({
 	"click .delete" () {
 		Meteor.call("tasks.delete", this._id);
 	},
-	"click .name" (e) {
-		alert(this.name);
-	},
+	// "click .name" (e) {
+	// 	alert(this.name);
+	// },
 });

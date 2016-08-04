@@ -1,7 +1,6 @@
 .task {
 	position: relative;
 	padding: 5px 1em 5px 5px;
-	cursor: pointer;
 	min-height: 1.3em;
 	font-family: monospace;
 
@@ -13,10 +12,15 @@
 		background-color: #ddd;
 	}
 
+	.name.toTextarea {
+		border: 0;
+	}
+
 	.controls {
 		display: flex;
 		align-items: flex-start;
 		position: absolute;
+		cursor: pointer;
 		top: 5px;
 		right: 0;
 		width: 1em;
