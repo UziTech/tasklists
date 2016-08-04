@@ -22,8 +22,6 @@ Meteor.startup(function () {
 });
 
 Template.task.onRendered(function () {
-	// var name = this.find(".name");
-	// name.innerHTML = name.dataset.name;
 	var $name = $(this.find(".name"));
 	$name.text($name.data().name);
 
@@ -39,9 +37,8 @@ Template.task.helpers({
 		var focus = $name.is(":focus");
 		if (!focus) {
 			$name.text(this.name);
-		} else if (this.lastClientId !== Session.get("clientId") && $name.text() !== this.name) {
-			$name.blur();
-			$name.text(this.name);
+		} else if (this.lastClientId !== Session.get("clientId") && this.name !== $name.text()) {
+			$name.blur().text(this.name);
 		}
 
 		return this.name;
@@ -101,13 +98,4 @@ Template.task.events({
 	"change .name" (e) {
 		Meteor.call("tasks.edit", this._id, e.target.textContent, Session.get("clientId"));
 	},
-	// "blur .name" (e) {
-	// 	var $name = $(e.target);
-	// 	Meteor.setTimeout(function () {
-	// 		var val = $name.attr("data-name");
-	// 		if ($name.text() !== val) {
-	// 			$name.text(val);
-	// 		}
-	// 	}, 350);
-	// },
 });
