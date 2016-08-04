@@ -93,6 +93,11 @@ Template.task.events({
 	},
 	"blur .name" (e) {
 		var $name = $(e.target);
-		$name.text($name.data().name);
+		Meteor.setTimeout(function () {
+			var val = $name.attr("data-name");
+			if ($name.text() !== val) {
+				$name.text(val);
+			}
+		}, 350);
 	},
 });
