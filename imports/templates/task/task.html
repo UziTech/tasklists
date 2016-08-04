@@ -1,11 +1,8 @@
 <template name="task">
 	<div class="task" data-id="{{_id}}">
-		<div class="name">
-			{{name}}
-		</div>
+		<div class="name">{{name}}</div>
 		<div class="controls">
 			<span class="ellip">&vellip;</span>
-			<button class="delete" title="Delete">&times;</button>
 			{{#unless done}}
 				<span class="move-buttons">
 					<div class="move" title="Move">&harr;</div>
@@ -19,6 +16,7 @@
 				</span>
 			{{/unless}}
 			<input type="checkbox" class="done" checked="{{done}}" title="Done" />
+			<button class="delete" title="Delete">&times;</button>
 		</div>
 	</div>
 </template>
