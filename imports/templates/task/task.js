@@ -2,6 +2,12 @@ import {
 	Meteor
 } from "meteor/meteor";
 import {
+	Random
+} from "meteor/random";
+import {
+	Session
+} from "meteor/session";
+import {
 	Template
 } from "meteor/templating";
 import Dates from "../../util/Dates.js";
@@ -9,6 +15,7 @@ import "./task.html";
 import "./task.scss";
 
 Meteor.startup(function () {
+	Session.set("clientId", Random.id());
 	$.getScript("/js/jquery.toTextarea.js", function () {
 		$(".task .name").toTextarea();
 	});
@@ -31,6 +38,9 @@ Template.task.helpers({
 		var $name = $(".task[data-id='" + this._id + "'] .name");
 		var focus = $name.is(":focus");
 		if (!focus) {
+			$name.text(this.name);
+		} else if (this.lastClientId !== Session.get("clientId") && $name.text() !== this.name) {
+			$name.blur();
 			$name.text(this.name);
 		}
 
@@ -85,19 +95,19 @@ Template.task.events({
 		}
 		const task = this;
 		this.changeTimeout = Meteor.setTimeout(function () {
-			Meteor.call("tasks.edit", task._id, e.target.textContent);
+			Meteor.call("tasks.edit", task._id, e.target.textContent, Session.get("clientId"));
 		}, 350);
 	},
 	"change .name" (e) {
-		Meteor.call("tasks.edit", this._id, e.target.textContent);
+		Meteor.call("tasks.edit", this._id, e.target.textContent, Session.get("clientId"));
 	},
-	"blur .name" (e) {
-		var $name = $(e.target);
-		Meteor.setTimeout(function () {
-			var val = $name.attr("data-name");
-			if ($name.text() !== val) {
-				$name.text(val);
-			}
-		}, 350);
-	},
+	// "blur .name" (e) {
+	// 	var $name = $(e.target);
+	// 	Meteor.setTimeout(function () {
+	// 		var val = $name.attr("data-name");
+	// 		if ($name.text() !== val) {
+	// 			$name.text(val);
+	// 		}
+	// 	}, 350);
+	// },
 });

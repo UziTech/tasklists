@@ -112,16 +112,18 @@ Meteor.methods({
 			});
 		}
 	},
-	"tasks.edit" (taskId, name) {
+	"tasks.edit" (taskId, name, lastClientId) {
 		check(taskId, String);
 		check(name, String);
+		check(lastClientId, String);
 
 		var task = Tasks.findOne(taskId);
 
 		if (task.name !== name) {
 			Tasks.update(taskId, {
 				$set: {
-					name
+					name,
+					lastClientId
 				},
 				$push: {
 					history: {
