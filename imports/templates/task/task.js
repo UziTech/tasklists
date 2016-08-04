@@ -15,33 +15,50 @@ import "./task.html";
 import "./task.scss";
 
 Meteor.startup(function () {
+
+	// store clientId for task.lastClientId to prevent multiple people editing the same task
 	Session.set("clientId", Random.id());
+
+	// load the toTextarea plugin
 	$.getScript("/js/jquery.toTextarea.js", function () {
+
+		// enable the plugin on .name elements that are already rendered
 		$(".task .name").toTextarea();
 	});
 });
 
 Template.task.onRendered(function () {
 	var $name = $(this.find(".name"));
+
+	// set the text to the data-name attribute value
+	// which is the reactive name
 	$name.text($name.data().name);
 
+	// if toTextarea plugin is loaded enable it
 	if ($name.toTextarea) {
 		$name.toTextarea();
 	}
 });
 
 Template.task.helpers({
-	name: function () {
+	dataName() {
 
-		var $name = $(".task[data-id='" + this._id + "'] .name");
-		var focus = $name.is(":focus");
-		if (!focus) {
+		// check if this .name has focus
+		var $name = $("#" + this._id + " .name");
+		if (!$name.is(":focus")) {
+
+			// set .name text to this.name
 			$name.text(this.name);
 		} else if (this.lastClientId !== Session.get("clientId") && this.name !== $name.text()) {
+
+			// blur .name and set text to this.name
 			$name.blur().text(this.name);
 		}
 
 		return this.name;
+	},
+	isColor(color) {
+		return this.color === color || (!this.color && !color);
 	}
 });
 
@@ -85,6 +102,9 @@ Template.task.events({
 	},
 	"click .delete" () {
 		Meteor.call("tasks.delete", this._id);
+	},
+	"click .color-to" (e) {
+		Meteor.call("tasks.color", this._id, e.target.dataset.color);
 	},
 	"input .name" (e) {
 		if (this.changeTimeout) {

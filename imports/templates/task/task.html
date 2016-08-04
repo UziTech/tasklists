@@ -1,6 +1,6 @@
 <template name="task">
-	<div class="task" data-id="{{_id}}">
-		<div class="name" data-name="{{name}}"></div>
+	<div class="task {{color}}" id="{{_id}}">
+		<div class="name" data-name="{{dataName}}"></div>
 		<div class="controls">
 			<span class="ellip">&vellip;</span>
 			{{#unless done}}
@@ -13,6 +13,16 @@
 					<button class="move-to" data-list="thismonth" title="This Month">M</button>
 					<button class="move-to" data-list="nextmonth" title="Next Month">M</button>
 					<button class="move-to" data-list="later" title="Later">L</button>
+				</span>
+				<span class="color-buttons">
+					<div class="color {{color}}" title="Color">C</div>
+					<button class="color-to red" data-color="red" title="Red"></button>
+					<button class="color-to yellow" data-color="yellow" title="Yellow"></button>
+					<button class="color-to lime" data-color="lime" title="Lime"></button>
+					<button class="color-to aqua" data-color="aqua" title="Aqua"></button>
+					<button class="color-to blue" data-color="blue" title="Blue"></button>
+					<button class="color-to fuchsia" data-color="fuchsia" title="Fuchsia"></button>
+					<button class="color-to" data-color="" title="None"></button>
 				</span>
 			{{/unless}}
 			<input type="checkbox" class="done" checked="{{done}}" title="Done" />

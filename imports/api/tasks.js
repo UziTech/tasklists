@@ -138,4 +138,28 @@ Meteor.methods({
 			});
 		}
 	},
+	"tasks.color" (taskId, color) {
+		check(taskId, String);
+		check(color, String);
+
+		var task = Tasks.findOne(taskId);
+
+		if (task.color !== color) {
+			Tasks.update(taskId, {
+				$set: {
+					color
+				},
+				$push: {
+					history: {
+						type: "color",
+						value: {
+							color
+						},
+						time: new Date(),
+						user: this.userId,
+					}
+				}
+			});
+		}
+	},
 });
