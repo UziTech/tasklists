@@ -8,12 +8,35 @@ import Dates from "../../util/Dates.js";
 import "./task.html";
 import "./task.scss";
 
-Template.task.onRendered(function () {
-	$(this.find(".name")).toTextarea();
+Meteor.startup(function () {
+	$.getScript("/js/jquery.toTextarea.js", function () {
+		$(".task .name").toTextarea();
+	});
 });
 
-// Template.task.helpers({
-// });
+Template.task.onRendered(function () {
+	// var name = this.find(".name");
+	// name.innerHTML = name.dataset.name;
+	var $name = $(this.find(".name"));
+	$name.text($name.data().name);
+
+	if ($name.toTextarea) {
+		$name.toTextarea();
+	}
+});
+
+Template.task.helpers({
+	name: function () {
+
+		var $name = $(".task[data-id='" + this._id + "'] .name");
+		var focus = $name.is(":focus");
+		if (!focus) {
+			$name.text(this.name);
+		}
+
+		return this.name;
+	}
+});
 
 Template.task.events({
 	"change .done" (e) {
@@ -50,13 +73,22 @@ Template.task.events({
 
 			const due = Dates.addDays(this.due, Dates.daysDiff(start, this.start));
 
-			Meteor.call("tasks.update", this._id, start, due);
+			Meteor.call("tasks.move", this._id, start, due);
 		}
 	},
 	"click .delete" () {
 		Meteor.call("tasks.delete", this._id);
 	},
-	// "click .name" (e) {
-	// 	alert(this.name);
-	// },
+	"input .name" (e) {
+		if (this.changeTimeout) {
+			Meteor.clearTimeout(this.changeTimeout);
+		}
+		const task = this;
+		this.changeTimeout = Meteor.setTimeout(function () {
+		Meteor.call("tasks.edit", task._id, e.target.textContent);
+	}, 350);
+	},
+	"change .name" (e) {
+		Meteor.call("tasks.edit", this._id, e.target.textContent);
+	},
 });

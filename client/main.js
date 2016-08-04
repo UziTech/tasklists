@@ -16,7 +16,3 @@ import {
 import Dates from "../imports/util/Dates.js";
 
 import {Tasks} from "../imports/api/tasks.js";
-
-Meteor.startup(function(){
-	$.getScript("/js/jquery.toTextarea.js");
-});

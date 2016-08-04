@@ -12,7 +12,6 @@ import {
 export const Tasks = new Mongo.Collection("tasks");
 
 if (Meteor.isServer) {
-	// This code only runs on the server
 	Meteor.publish("tasks", function () {
 		return Tasks.find({
 			active: true,
@@ -86,27 +85,55 @@ Meteor.methods({
 			}
 		});
 	},
-	"tasks.update" (taskId, start, due) {
+	"tasks.move" (taskId, start, due) {
 		check(taskId, String);
 		check(start, Date);
 		check(due, Date);
 
-		Tasks.update(taskId, {
-			$set: {
-				start,
-				due
-			},
-			$push: {
-				history: {
-					type: "update",
-					value: {
-						start,
-						due
-					},
-					time: new Date(),
-					user: this.userId,
+		var task = Tasks.findOne(taskId);
+
+		if (task.start.getTime() !== start.getTime() || task.due.getTime() !== due.getTime()) {
+			Tasks.update(taskId, {
+				$set: {
+					start,
+					due
+				},
+				$push: {
+					history: {
+						type: "move",
+						value: {
+							start,
+							due
+						},
+						time: new Date(),
+						user: this.userId,
+					}
 				}
-			}
-		});
+			});
+		}
+	},
+	"tasks.edit" (taskId, name) {
+		check(taskId, String);
+		check(name, String);
+
+		var task = Tasks.findOne(taskId);
+
+		if (task.name !== name) {
+			Tasks.update(taskId, {
+				$set: {
+					name
+				},
+				$push: {
+					history: {
+						type: "edit",
+						value: {
+							name
+						},
+						time: new Date(),
+						user: this.userId,
+					}
+				}
+			});
+		}
 	},
 });
