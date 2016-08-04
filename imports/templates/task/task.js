@@ -85,22 +85,14 @@ Template.task.events({
 		}
 		const task = this;
 		this.changeTimeout = Meteor.setTimeout(function () {
-<<<<<<< 058896d885a1f5a982dad067a3715421a9f7ef1f
-		Meteor.call("tasks.edit", task._id, e.target.textContent);
-	}, 350);
-=======
 			Meteor.call("tasks.edit", task._id, e.target.textContent);
 		}, 350);
->>>>>>> use toTextarea to edit name
 	},
 	"change .name" (e) {
 		Meteor.call("tasks.edit", this._id, e.target.textContent);
 	},
-<<<<<<< 058896d885a1f5a982dad067a3715421a9f7ef1f
-=======
 	"blur .name" (e) {
 		var $name = $(e.target);
 		$name.text($name.data().name);
 	},
->>>>>>> use toTextarea to edit name
 });
