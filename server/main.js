@@ -6,5 +6,11 @@ import {
 } from "../imports/api/tasks";
 
 Meteor.startup(() => {
-	// code to run on server at startup
+	
+	// denay updating user profiles
+	Meteor.users.deny({
+		update: function () {
+			return true;
+		}
+	});
 });
