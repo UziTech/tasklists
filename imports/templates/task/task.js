@@ -60,8 +60,8 @@ Template.task.helpers({
 });
 
 Template.task.events({
-	"change .done" (e) {
-		Meteor.call("tasks.done", this._id, e.target.checked);
+	"click .done" () {
+		Meteor.call("tasks.done", this._id, !this.doneAt);
 	},
 	"click .move-button" (e) {
 		if (!this.done) {

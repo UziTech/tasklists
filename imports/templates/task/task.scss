@@ -19,10 +19,12 @@
 		cursor: pointer;
 		top: 6px;
 		right: 0;
-		width: 1em;
-		direction: rtl;
 		overflow: hidden;
 		height: 1.3em;
+
+		.hidden-controls {
+			display: none;
+		}
 
 		button,
 		input {
@@ -50,6 +52,26 @@
 			&:active {
 				color: #fff;
 				background-color: #900;
+			}
+		}
+
+		.done {
+			margin-left: 5px;
+			background-color: #0ff;
+			border: 2px solid #033;
+			border-radius: 3px;
+			width: 1.5em;
+			height: 1.5em;
+			box-sizing: border-box;
+			padding: 0;
+
+			&.is-done::after {
+				content: "✓";
+			}
+
+			&:active {
+				color: #fff;
+				background-color: #099;
 			}
 		}
 
@@ -138,8 +160,12 @@
 
 .bulk-edit .task .controls,
 .task .controls:hover {
-	width: auto;
 	overflow: visible;
+
+	.hidden-controls {
+		display: flex;
+		align-items: flex-start;
+	}
 
 	.color,
 	.move,
