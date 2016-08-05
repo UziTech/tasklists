@@ -56,9 +56,6 @@ Template.task.helpers({
 		}
 
 		return this.name;
-	},
-	isColor(color) {
-		return this.color === color || (!this.color && !color);
 	}
 });
 
