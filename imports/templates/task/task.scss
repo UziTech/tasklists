@@ -105,15 +105,18 @@
 		&[data-color="#{$name}"] {
 			color: $txt;
 
-			&:nth-child(odd) {
+			&:nth-child(odd),
+			&:nth-child(odd) .controls {
 				background-color: $bg;
 			}
 
-			&:nth-child(even) {
+			&:nth-child(even),
+			&:nth-child(even) .controls {
 				background-color: darken($bg, 5%);
 			}
 
-			&:hover {
+			&:hover,
+			&:hover .controls {
 				background-color: darken($bg, 10%);
 			}
 
