@@ -14,7 +14,7 @@ export const Tasks = new Mongo.Collection("tasks");
 if (Meteor.isServer) {
 	Meteor.publish("tasks", function () {
 		return Tasks.find({
-			active: true,
+			deletedAt: false,
 			owner: this.userId,
 		});
 	});
@@ -43,14 +43,11 @@ Meteor.methods({
 			priority,
 			project,
 			color,
-			done: false,
-			active: true,
+			doneAt: false,
+			deletedAt: false,
+			createdAt: new Date(),
 			owner: this.userId,
-			history: [{
-				type: "created",
-				time: new Date(),
-				user: this.userId,
-			}],
+			history: [],
 		});
 	},
 	"tasks.delete" (taskId) {
@@ -58,14 +55,7 @@ Meteor.methods({
 
 		Tasks.update(taskId, {
 			$set: {
-				active: false
-			},
-			$push: {
-				history: {
-					type: "deleted",
-					time: new Date(),
-					user: this.userId,
-				}
+				deletedAt: new Date()
 			}
 		});
 	},
@@ -73,9 +63,11 @@ Meteor.methods({
 		check(taskId, String);
 		check(done, Boolean);
 
+		const doneAt = (done ? new Date() : false);
+
 		Tasks.update(taskId, {
 			$set: {
-				done: done
+				doneAt
 			},
 			$push: {
 				history: {

@@ -14,14 +14,18 @@ import "./lists.scss";
 Template.lists.helpers({
 	doneTasks() {
 		return Tasks.find({
-			done: true
+			doneAt: false
+		}, {
+			sort: {
+				doneAt: -1
+			}
 		});
 	},
 	lateTasks() {
 		return Tasks.find({
 			$and: [
 				{
-					done: false
+					doneAt: false
 				},
 				{
 					due: {
@@ -29,6 +33,11 @@ Template.lists.helpers({
 					}
 				},
 			]
+		}, {
+			sort: {
+				start: -1,
+				createdAt: -1,
+			}
 		});
 	},
 	todayTasks() {
@@ -37,7 +46,7 @@ Template.lists.helpers({
 		return Tasks.find({
 			$and: [
 				{
-					done: false
+					doneAt: false
 				},
 				{
 					start: {
@@ -50,18 +59,30 @@ Template.lists.helpers({
 					}
 				},
 		]
+		}, {
+			sort: {
+				priority: 1,
+				start: -1,
+				createdAt: -1,
+			}
 		});
 	},
 	tomorrowTasks() {
 		return Tasks.find({
 			$and: [
 				{
-					done: false
+					doneAt: false
 				},
 				{
 					start: Dates.tomorrow()
 				},
-		]
+			]
+		}, {
+			sort: {
+				priority: 1,
+				start: -1,
+				createdAt: -1,
+			}
 		});
 	},
 	thisweekTasks() {
@@ -73,7 +94,7 @@ Template.lists.helpers({
 		return Tasks.find({
 			$and: [
 				{
-					done: false
+					doneAt: false
 				},
 				{
 					start: {
@@ -85,14 +106,20 @@ Template.lists.helpers({
 						$lt: Dates.nextWeek()
 					}
 				},
-		]
+			]
+		}, {
+			sort: {
+				priority: 1,
+				start: -1,
+				createdAt: -1,
+			}
 		});
 	},
 	nextweekTasks() {
 		return Tasks.find({
 			$and: [
 				{
-					done: false
+					doneAt: false
 				},
 				{
 					start: {
@@ -105,6 +132,12 @@ Template.lists.helpers({
 					}
 				},
 		]
+		}, {
+			sort: {
+				priority: 1,
+				start: -1,
+				createdAt: -1,
+			}
 		});
 	},
 	thismonthTasks() {
@@ -116,7 +149,7 @@ Template.lists.helpers({
 		return Tasks.find({
 			$and: [
 				{
-					done: false
+					doneAt: false
 				},
 				{
 					start: {
@@ -129,13 +162,20 @@ Template.lists.helpers({
 					}
 				},
 		]
+		}, {
+			sort: {
+				priority: 1,
+					priority: 1,
+				start: -1,
+				createdAt: -1,
+			}
 		});
 	},
 	nextmonthTasks() {
 		return Tasks.find({
 			$and: [
 				{
-					done: false
+					doneAt: false
 				},
 				{
 					start: {
@@ -148,13 +188,19 @@ Template.lists.helpers({
 					}
 				},
 		]
+		}, {
+			sort: {
+				priority: 1,
+				start: -1,
+				createdAt: -1,
+			}
 		});
 	},
 	laterTasks() {
 		return Tasks.find({
 			$and: [
 				{
-					done: false
+					doneAt: false
 				},
 				{
 					start: {
@@ -162,6 +208,12 @@ Template.lists.helpers({
 					}
 				},
 		]
+		}, {
+			sort: {
+				priority: 1,
+				start: -1,
+				createdAt: -1,
+			}
 		});
 	},
 });
