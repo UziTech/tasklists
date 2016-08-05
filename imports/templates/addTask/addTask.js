@@ -15,7 +15,7 @@ import {
 import "./addTask.html";
 import "./addTask.scss";
 
-Meteor.startup(function(){
+Meteor.startup(function () {
 	Session.setDefault("defaultColor", "");
 });
 
@@ -46,5 +46,9 @@ Template.addTask.events({
 	"click .color button" (e, template) {
 		Session.set("defaultColor", e.target.dataset.color);
 		template.$("form").submit();
+	},
+	"click #bulk-edit" () {
+		$(document.body).toggleClass("bulk-edit");
 	}
+
 });

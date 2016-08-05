@@ -14,7 +14,9 @@ import "./lists.scss";
 Template.lists.helpers({
 	doneTasks() {
 		return Tasks.find({
-			doneAt: false
+			doneAt: {
+				$not: false
+			}
 		}, {
 			sort: {
 				doneAt: -1
@@ -165,7 +167,7 @@ Template.lists.helpers({
 		}, {
 			sort: {
 				priority: 1,
-					priority: 1,
+				priority: 1,
 				start: -1,
 				createdAt: -1,
 			}

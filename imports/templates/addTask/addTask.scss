@@ -38,4 +38,18 @@
 		@include color-button("blue", #00f);
 		@include color-button("fuchsia", #f0f);
 	}
+
+	#bulk-edit {
+		float: left;
+		margin-left: 20px;
+		background: #fff url("/images/bulk-edit.png") center no-repeat;
+		width: 21px;
+		height: 21px;
+		border: 1px solid #000;
+		border-radius: 2px;
+	}
+}
+
+.bulk-edit #addTaskForm #bulk-edit {
+	background-color: #9cf;
 }

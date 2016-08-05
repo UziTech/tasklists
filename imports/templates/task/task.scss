@@ -38,6 +38,21 @@
 			padding-top: 2px;
 		}
 
+		.delete {
+			background-color: #f00;
+			border: 2px solid #300;
+			border-radius: 50%;
+			width: 1.5em;
+			height: 1.5em;
+			box-sizing: border-box;
+			padding: 0;
+
+			&:active {
+				color: #fff;
+				background-color: #900;
+			}
+		}
+
 		.move-buttons {
 			width: 2em;
 			height: 1.3em;
@@ -76,44 +91,8 @@
 		}
 
 		&:hover {
-			width: auto;
-			overflow: visible;
+
 			z-index: 10;
-
-			.color,
-			.move,
-			button,
-			input {
-				opacity: 1;
-			}
-
-			.move-buttons {
-				button {
-					opacity: 0;
-				}
-
-				&:hover {
-					height: auto;
-
-					button {
-						opacity: 1;
-					}
-				}
-			}
-
-			.color-buttons {
-				button {
-					opacity: 0;
-				}
-
-				&:hover {
-					height: auto;
-
-					button {
-						opacity: 1;
-					}
-				}
-			}
 		}
 	}
 
@@ -152,4 +131,45 @@
 	@include task-color("blue", #00f, #fff);
 	@include task-color("fuchsia", #f0f, #fff);
 
+}
+
+.bulk-edit .task .controls,
+.task .controls:hover {
+	width: auto;
+	overflow: visible;
+
+	.color,
+	.move,
+	button,
+	input {
+		opacity: 1;
+	}
+
+	.move-buttons {
+		button {
+			opacity: 0;
+		}
+
+		&:hover {
+			height: auto;
+
+			button {
+				opacity: 1;
+			}
+		}
+	}
+
+	.color-buttons {
+		button {
+			opacity: 0;
+		}
+
+		&:hover {
+			height: auto;
+
+			button {
+				opacity: 1;
+			}
+		}
+	}
 }
