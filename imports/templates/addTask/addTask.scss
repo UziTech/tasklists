@@ -1,52 +1,77 @@
 #addTaskForm {
 	float: left;
 
-	.name {
-		float: left;
+	#newTask {
+		display: inline-block;
+		vertical-align: top;
 	}
 
-	.color {
+	.color-buttons {
 		display: inline-block;
-		float: left;
-		height: 21px;
+		vertical-align: top;
+		position: relative;
+		z-index: 10;
 
-		button {
-			float: left;
-			display: inline-block;
-			height: 100%;
-			width: 21px;
-			box-sizing: border-box;
-			border: 2px dashed transparent;
+		.color {
+			cursor: pointer;
+			display: block;
+			height: 20px;
+			width: 20px;
+			border: 0;
 		}
-		@mixin default-color {
-			border-color: #000;
+
+		.colors {
+			display: none;
+			position: absolute;
+			border: 1px solid #fff;
+			border-top: 0;
+			top: 100%;
+			left: -1px;
+
+			.color-button {
+				display: block;
+				cursor: pointer;
+				height: 20px;
+				width: 20px;
+				border: 1px solid #333;
+				border-bottom: 0;
+
+				&:last-child {
+					border-bottom: 1px solid #333;
+				}
+			}
 		}
-		@mixin color-button($name, $color) {
+
+		&.open .colors {
+			display: block;
+		}
+		@mixin color-button($name, $bg, $txt) {
+			&[data-default-color="#{$name}"] .color {
+				background-color: $bg;
+				color: $txt;
+			}
+
 			[data-color="#{$name}"] {
-				background-color: $color;
-			}
-
-			&[data-default-color="#{$name}"] [data-color="#{$name}"] {
-				@include default-color;
+				background-color: $bg;
 			}
 		}
-		@include color-button("", #ccc);
-		@include color-button("red", #f00);
-		@include color-button("yellow", #ff0);
-		@include color-button("lime", #0f0);
-		@include color-button("aqua", #0ff);
-		@include color-button("blue", #00f);
-		@include color-button("fuchsia", #f0f);
+		@include color-button("", #ccc, #000);
+		@include color-button("red", #f00, #fff);
+		@include color-button("yellow", #ff0, #000);
+		@include color-button("lime", #0f0, #000);
+		@include color-button("aqua", #0ff, #000);
+		@include color-button("blue", #00f, #fff);
+		@include color-button("fuchsia", #f0f, #fff);
 	}
 
 	#bulk-edit {
-		float: left;
-		margin-left: 20px;
+		display: inline-block;
+		vertical-align: top;
 		background: #fff url("/images/bulk-edit.png") center no-repeat;
-		width: 21px;
-		height: 21px;
-		border: 1px solid #000;
-		border-radius: 2px;
+		width: 20px;
+		height: 20px;
+		border: 2px solid #000;
+		border-radius: 3px;
 	}
 }
 

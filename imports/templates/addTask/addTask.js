@@ -26,7 +26,7 @@ Template.addTask.helpers({
 });
 
 Template.addTask.events({
-	"submit form" (e) {
+	"submit #newTask" (e) {
 		e.preventDefault();
 		const name = e.target.elements.name.value.trim();
 		if (!name) {
@@ -43,12 +43,22 @@ Template.addTask.events({
 		e.target.reset();
 		e.target.elements.name.focus();
 	},
-	"click .color button" (e, template) {
+	"click .color" (e) {
+		var $controls = $(e.target).closest(".controls");
+		var isOpen = $controls.hasClass("open");
+		$(".open").removeClass("open");
+		if (isOpen) {
+			$("#newTask").submit();
+		} else {
+			$controls.addClass("open");
+		}
+	},
+	"click .color-button" (e) {
+		$(".open").removeClass("open");
 		Session.set("defaultColor", e.target.dataset.color);
-		template.$("form").submit();
+		$("#newTask").submit();
 	},
 	"click #bulk-edit" () {
-		$(".open").removeClass("open");
 		$(document.body).toggleClass("bulk-edit");
 	}
 
