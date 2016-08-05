@@ -123,10 +123,6 @@
 				}
 			}
 		}
-
-		&.open .hidden-controls {
-			z-index: 10;
-		}
 	}
 
 	// colors
@@ -170,14 +166,15 @@
 }
 
 .bulk-edit .task .controls,
-.task .controls.open {
+.task .controls.open,
+.task .controls:hover {
 	.hidden-controls {
 		display: flex;
 
 		.color-buttons,
 		.move-buttons {
 			&.open {
-				z-index: 11;
+				z-index: 10;
 
 				button {
 					display: block;
