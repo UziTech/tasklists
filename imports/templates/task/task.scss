@@ -126,7 +126,7 @@
 			}
 		}
 	}
-	@include task-color("", #aaa, #000);
+	@include task-color("", #ccc, #000);
 	@include task-color("red", #f00, #fff);
 	@include task-color("yellow", #ff0, #000);
 	@include task-color("lime", #0f0, #000);
