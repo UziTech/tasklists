@@ -118,91 +118,38 @@
 	}
 
 	// colors
-	@mixin add-color($bg, $txt) {
-		color: $txt;
-
-		&:nth-child(odd) {
+	@mixin task-color($name, $bg, $txt) {
+		.color-buttons [data-color="#{$name}"] {
 			background-color: $bg;
 		}
 
-		&:nth-child(even) {
-			background-color: darken($bg, 5%);
+		&[data-color="#{$name}"] {
+			color: $txt;
+
+			&:nth-child(odd) {
+				background-color: $bg;
+			}
+
+			&:nth-child(even) {
+				background-color: darken($bg, 5%);
+			}
+
+			&:hover {
+				background-color: darken($bg, 10%);
+			}
+
+			.name:focus {
+				border-top: 1px solid $txt;
+				border-bottom: 1px solid $txt;
+			}
 		}
-
-		&:hover {
-			background-color: darken($bg, 10%);
-		}
-
-		.name:focus {
-			border-top: 1px solid $txt;
-			border-bottom: 1px solid $txt;
-		}
 	}
+	@include task-color("", #aaa, #000);
+	@include task-color("red", #f00, #fff);
+	@include task-color("yellow", #ff0, #000);
+	@include task-color("lime", #0f0, #000);
+	@include task-color("aqua", #0ff, #000);
+	@include task-color("blue", #00f, #fff);
+	@include task-color("fuchsia", #f0f, #fff);
 
-	// none
-
-	.color-to {
-		background-color: #aaa;
-	}
-	@include add-color(#aaa, #000);
-
-	// red
-
-	.color-to.red {
-		background-color: #f00;
-	}
-
-	&.red {
-		@include add-color(#f00, #fff);
-	}
-
-	// yellow
-
-	.color-to.yellow {
-		background-color: #ff0;
-	}
-
-	&.yellow {
-		@include add-color(#ff0, #000);
-	}
-
-	// lime
-
-	.color-to.lime {
-		background-color: #0f0;
-	}
-
-	&.lime {
-		@include add-color(#0f0, #000);
-	}
-
-	// aqua
-
-	.color-to.aqua {
-		background-color: #0ff;
-	}
-
-	&.aqua {
-		@include add-color(#0ff, #000);
-	}
-
-	// blue
-
-	.color-to.blue {
-		background-color: #00f;
-	}
-
-	&.blue {
-		@include add-color(#00f, #fff);
-	}
-
-	// fuchsia
-
-	.color-to.fuchsia {
-		background-color: #f0f;
-	}
-
-	&.fuchsia {
-		@include add-color(#f0f, #fff);
-	}
 }

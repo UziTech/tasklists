@@ -23,12 +23,13 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-	"tasks.insert" (name, start, due, priority, project) {
+	"tasks.insert" (name, start, due, priority, project, color) {
 		check(name, String);
 		check(start, Date);
 		check(due, Date);
 		check(priority, Match.Integer);
 		check(project, String);
+		check(color, String);
 
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
@@ -41,6 +42,7 @@ Meteor.methods({
 			due,
 			priority,
 			project,
+			color,
 			done: false,
 			active: true,
 			owner: this.userId,

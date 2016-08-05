@@ -66,7 +66,7 @@ Template.task.events({
 	"change .done" (e) {
 		Meteor.call("tasks.done", this._id, e.target.checked);
 	},
-	"click .move-to" (e) {
+	"click .move-button" (e) {
 		if (!this.done) {
 			let start;
 			switch (e.target.dataset.list) {
@@ -103,7 +103,7 @@ Template.task.events({
 	"click .delete" () {
 		Meteor.call("tasks.delete", this._id);
 	},
-	"click .color-to" (e) {
+	"click .color-button" (e) {
 		Meteor.call("tasks.color", this._id, e.target.dataset.color);
 	},
 	"input .name" (e) {

@@ -1,3 +1,41 @@
 #addTaskForm {
 	float: left;
+
+	.name {
+		float: left;
+	}
+
+	.color {
+		display: inline-block;
+		float: left;
+		height: 21px;
+
+		button {
+			float: left;
+			display: inline-block;
+			height: 100%;
+			width: 21px;
+			box-sizing: border-box;
+			border: 2px dashed transparent;
+		}
+		@mixin default-color {
+			border-color: #000;
+		}
+		@mixin color-button($name, $color) {
+			[data-color="#{$name}"] {
+				background-color: $color;
+			}
+
+			&[data-default-color="#{$name}"] [data-color="#{$name}"] {
+				@include default-color;
+			}
+		}
+		@include color-button("", #ccc);
+		@include color-button("red", #f00);
+		@include color-button("yellow", #ff0);
+		@include color-button("lime", #0f0);
+		@include color-button("aqua", #0ff);
+		@include color-button("blue", #00f);
+		@include color-button("fuchsia", #f0f);
+	}
 }
