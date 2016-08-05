@@ -4,10 +4,10 @@
 		<div class="controls">
 			<span class="hidden-controls">
 				<button class="delete" title="Delete">&times;</button>
-				<button class="done {{#if doneAt}}is-done{{/if}}" title="Done"></button>
+				<button class="done" title="Done">&check;</button>
 				{{#unless done}}
 					<span class="color-buttons">
-						<div class="color" title="Color">C</div>
+						<button class="color" title="Color"></button>
 						<button class="color-button" data-color="red" title="Red"></button>
 						<button class="color-button" data-color="yellow" title="Yellow"></button>
 						<button class="color-button" data-color="lime" title="Lime"></button>
@@ -17,7 +17,7 @@
 						<button class="color-button" data-color="" title="None"></button>
 					</span>
 					<span class="move-buttons">
-						<div class="move" title="Move">&harr;</div>
+						<button class="move" title="Move">&harr;</button>
 						<button class="move-button" data-list="today" title="Today">T</button>
 						<button class="move-button" data-list="tomorrow" title="Tomorrow">T</button>
 						<button class="move-button" data-list="thisweek" title="This Week">W</button>
@@ -28,7 +28,7 @@
 					</span>
 					{{/unless}}
 			</span>
-			<span class="ellip">&vellip;</span>
+			<button class="ellip">&vellip;</button>
 		</div>
 	</div>
 </template>

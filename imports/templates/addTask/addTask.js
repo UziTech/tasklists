@@ -48,6 +48,7 @@ Template.addTask.events({
 		template.$("form").submit();
 	},
 	"click #bulk-edit" () {
+		$(".open").removeClass("open");
 		$(document.body).toggleClass("bulk-edit");
 	}
 

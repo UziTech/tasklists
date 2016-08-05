@@ -7,7 +7,7 @@
 	.name {
 		border: 0;
 		outline: none;
-		padding: 2px 0.5em 2px 2px;
+		padding: 3px 10px 4px 2px;
 		border-top: 1px solid transparent;
 		border-bottom: 1px solid transparent;
 	}
@@ -17,103 +17,113 @@
 		align-items: flex-start;
 		position: absolute;
 		cursor: pointer;
-		top: 6px;
+		top: 7px;
 		right: 0;
-		overflow: hidden;
-		height: 1.3em;
+		height: 20px;
+
+		.ellip {
+			cursor: pointer;
+			flex-shrink: 0;
+			text-align: center;
+			width: 16px;
+			padding-top: 2px;
+			background-color: transparent;
+			border: 0;
+		}
 
 		.hidden-controls {
 			display: none;
-		}
+			height: 20px;
+			overflow: visible;
 
-		button,
-		input {
-			cursor: pointer;
-			opacity: 0;
-			transition: opacity 0.2s;
-		}
+			.delete {
+				cursor: pointer;
+				background-color: #f00;
+				border: 2px solid #300;
+				border-radius: 50%;
+				width: 20px;
+				height: 20px;
+				box-sizing: border-box;
+				padding: 0;
 
-		.ellip {
-			flex-shrink: 0;
-			text-align: center;
-			width: 1em;
-			padding-top: 2px;
-		}
-
-		.delete {
-			background-color: #f00;
-			border: 2px solid #300;
-			border-radius: 50%;
-			width: 1.5em;
-			height: 1.5em;
-			box-sizing: border-box;
-			padding: 0;
-
-			&:active {
-				color: #fff;
-				background-color: #900;
-			}
-		}
-
-		.done {
-			margin-left: 5px;
-			background-color: #0ff;
-			border: 2px solid #033;
-			border-radius: 3px;
-			width: 1.5em;
-			height: 1.5em;
-			box-sizing: border-box;
-			padding: 0;
-
-			&.is-done::after {
-				content: "✓";
+				&:active {
+					color: #fff;
+					background-color: #900;
+				}
 			}
 
-			&:active {
-				color: #fff;
-				background-color: #099;
-			}
-		}
+			.done {
+				cursor: pointer;
+				margin-left: 5px;
+				background-color: #0ff;
+				border: 2px solid #033;
+				border-radius: 3px;
+				width: 20px;
+				height: 20px;
+				box-sizing: border-box;
+				padding: 0;
 
-		.move-buttons {
-			width: 2em;
-			height: 1.3em;
-
-			.move {
-				text-align: center;
-			}
-
-			button {
-				width: 100%;
-				display: block;
-			}
-		}
-
-		.color-buttons {
-			width: 2em;
-			height: 1.3em;
-
-			.color {
-				text-align: center;
-				line-height: 1.5em;
+				&:active {
+					color: #fff;
+					background-color: #099;
+				}
 			}
 
-			button {
-				width: 100%;
-				height: 2em;
-				display: block;
-				border: 1px solid #333;
-				border-bottom: 0;
+			.color-buttons {
+				margin-left: 5px;
 
-				&:last-child {
-					border-bottom: 1px solid #333;
+				.color {
+					cursor: pointer;
+					text-align: center;
+					width: 20px;
+					height: 20px;
+					padding: 0;
+					border: 0;
+					background-image: url("/images/color-button.png");
+					background-repeat: no-repeat;
 				}
 
+				.color-button {
+					cursor: pointer;
+					width: 20px;
+					height: 20px;
+					display: none;
+					border: 1px solid #333;
+					border-bottom: 0;
+
+					&:last-child {
+						border-bottom: 1px solid #333;
+					}
+
+				}
+			}
+
+			.move-buttons {
+				margin-left: 5px;
+				margin-right: 5px;
+
+				.move {
+					cursor: pointer;
+					text-align: center;
+					width: 20px;
+					height: 20px;
+					background-color: #ff0;
+					border: 2px solid #330;
+					border-radius: 3px;
+					padding: 0;
+				}
+
+				.move-button {
+					cursor: pointer;
+					width: 20px;
+					height: 20px;
+					padding: 0;
+					display: none;
+				}
 			}
 		}
 
-		&:hover {
-
+		&.open .hidden-controls {
 			z-index: 10;
 		}
 	}
@@ -159,45 +169,18 @@
 }
 
 .bulk-edit .task .controls,
-.task .controls:hover {
-	overflow: visible;
-
+.task .controls.open {
 	.hidden-controls {
 		display: flex;
-		align-items: flex-start;
-	}
 
-	.color,
-	.move,
-	button,
-	input {
-		opacity: 1;
-	}
+		.color-buttons,
+		.move-buttons {
+			&.open {
+				z-index: 11;
 
-	.move-buttons {
-		button {
-			opacity: 0;
-		}
-
-		&:hover {
-			height: auto;
-
-			button {
-				opacity: 1;
-			}
-		}
-	}
-
-	.color-buttons {
-		button {
-			opacity: 0;
-		}
-
-		&:hover {
-			height: auto;
-
-			button {
-				opacity: 1;
+				button {
+					display: block;
+				}
 			}
 		}
 	}

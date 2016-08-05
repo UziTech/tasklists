@@ -60,6 +60,34 @@ Template.task.helpers({
 });
 
 Template.task.events({
+	"click .ellip" (e) {
+		var $controls = $(e.target).closest(".controls");
+		var isOpen = $controls.hasClass("open");
+		$(".open").removeClass("open");
+		if (!isOpen) {
+			$controls.addClass("open");
+		}
+	},
+	"click .move" (e) {
+		var $controls = $(e.target).closest(".controls");
+		var $moveButtons = $controls.find(".move-buttons");
+		var isOpen = $moveButtons.hasClass("open");
+		$(".open").removeClass("open");
+		$controls.addClass("open");
+		if (!isOpen) {
+			$moveButtons.addClass("open");
+		}
+	},
+	"click .color" (e) {
+		var $controls = $(e.target).closest(".controls");
+		var $colorButtons = $controls.find(".color-buttons");
+		var isOpen = $colorButtons.hasClass("open");
+		$(".open").removeClass("open");
+		$controls.addClass("open");
+		if (!isOpen) {
+			$colorButtons.addClass("open");
+		}
+	},
 	"click .done" () {
 		Meteor.call("tasks.done", this._id, !this.doneAt);
 	},

@@ -1,7 +1,4 @@
 import {
-	Meteor
-} from "meteor/meteor";
-import {
 	Template
 } from "meteor/templating";
 import {
@@ -10,9 +7,13 @@ import {
 import {
 	lists
 } from "../imports/templates/lists/lists.js";
-import {
-	task
-} from "../imports/templates/task/task.js";
-import Dates from "../imports/util/Dates.js";
 
-import {Tasks} from "../imports/api/tasks.js";
+Template.body.events({
+	"focus, click" (e) {
+
+		// close any open controls on focusing/clicking something else
+		if (!e.target.closest(".controls")) {
+			$(".open").removeClass("open");
+		}
+	},
+});
