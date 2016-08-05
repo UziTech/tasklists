@@ -34,8 +34,7 @@ header {
 				background-color: #006;
 				color: #fff;
 				border-radius: 5px;
-				padding: 3px 5px;
-				padding-left: 25px;
+				padding: 3px 5px 3px 25px;
 
 				&:active {
 					background-color: #003;
@@ -44,23 +43,19 @@ header {
 			}
 
 			.login-display-name {
-				&::before {
-					content: "Hi ";
-				}
+				display: none;
 			}
 
 			#login-buttons-logout {
 				cursor: pointer;
-				border: 2px solid #333;
-				background-color: #609;
-				color: #fff;
-				border-radius: 5px;
-				padding: 3px 5px;
-
-				&:active {
-					background-color: #306;
-					border-color: #000;
-				}
+				font-size: 0;
+				width: 19px;
+				height: 28px;
+				background-repeat: no-repeat;
+				background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAcCAYAAACDBoQZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTCtCgrAAAABKUlEQVRIS+XSOUpEURSE4UsnJkZiZKSp7kAzQ1MxcwOmJs7DCgSHzJUIokaCrsEFOAuCgajoX9CnOdrVz8drjCz4uLy6556g6WIyhj1c4R2fib7V72IUlZnHC/KCXjSneZs5fMA97EXzs/iWYTwiD55gCYvJMtTnuQcMoZNV5AE9qkrl/Dni4kJFjVwi3uh9J8+IizUVNbKOePOkIpJ/+AUVNaK5ePOqIvJny1YwUoPmupYN4A1x0YSWaU/ZaRf90p6uP2tT2mMvmrJldodj3KeuF1uGUwxC0XkGNxdsGSaRMwU3F2wZxpEzATcXbBn2kXMANxdsmU1D0enuM1tmM1B0uvvMltk/WXaEw/bp7rNy+6No6hplMxX92EBpYRs3cEO/0butUkrrC/OMh62OEJ77AAAAAElFTkSuQmCC");
+				position: absolute;
+				top: 0;
+				right: 0;
 			}
 		}
 	}
