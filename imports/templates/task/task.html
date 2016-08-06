@@ -5,17 +5,17 @@
 			<span class="hidden-controls">
 				<button class="delete" title="Delete">&times;</button>
 				<button class="done" title="Done">&check;</button>
-				{{#unless done}}
-					<span class="color-buttons">
-						<button class="color" title="Color"></button>
-						<button class="color-button" data-color="red" title="Red"></button>
-						<button class="color-button" data-color="yellow" title="Yellow"></button>
-						<button class="color-button" data-color="lime" title="Lime"></button>
-						<button class="color-button" data-color="aqua" title="Aqua"></button>
-						<button class="color-button" data-color="blue" title="Blue"></button>
-						<button class="color-button" data-color="fuchsia" title="Fuchsia"></button>
-						<button class="color-button" data-color="" title="None"></button>
-					</span>
+				<span class="color-buttons">
+					<button class="color" title="Color"></button>
+					<button class="color-button" data-color="red" title="Red"></button>
+					<button class="color-button" data-color="yellow" title="Yellow"></button>
+					<button class="color-button" data-color="lime" title="Lime"></button>
+					<button class="color-button" data-color="aqua" title="Aqua"></button>
+					<button class="color-button" data-color="blue" title="Blue"></button>
+					<button class="color-button" data-color="fuchsia" title="Fuchsia"></button>
+					<button class="color-button" data-color="" title="None"></button>
+				</span>
+					{{#unless doneAt}}
 					<span class="move-buttons">
 						<button class="move" title="Move">&harr;</button>
 						<button class="move-button" data-list="today" title="Today">T</button>
