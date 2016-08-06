@@ -23,21 +23,19 @@
 		.colors {
 			display: none;
 			position: absolute;
-			border: 1px solid #fff;
-			border-top: 0;
 			top: 100%;
-			left: -1px;
+			left: 0;
 
 			.color-button {
 				display: block;
 				cursor: pointer;
 				height: 20px;
 				width: 20px;
-				border: 1px solid #333;
+				border: 1px solid #fff;
 				border-bottom: 0;
 
 				&:last-child {
-					border-bottom: 1px solid #333;
+					border-bottom: 1px solid #fff;
 				}
 			}
 		}
@@ -77,4 +75,5 @@
 
 .bulk-edit #add-task #bulk-edit {
 	background-color: #9cf;
+	border-color: #369;
 }
