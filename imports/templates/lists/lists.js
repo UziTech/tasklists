@@ -1,15 +1,10 @@
-import {
-	Template
-} from "meteor/templating";
-import {
-	Tasks
-} from "../../api/tasks.js";
-import {
-	task
-} from "../task/task.js";
+import { Template } from "meteor/templating";
+import { Tasks } from "../../api/tasks.js";
 import Dates from "../../util/Dates.js";
+
 import "./lists.html";
 import "./lists.scss";
+import  "../task/task.js";
 
 Template.lists.helpers({
 	doneTasks() {

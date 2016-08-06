@@ -1,12 +1,8 @@
-import {
-	Template
-} from "meteor/templating";
-import {
-	addTask
-} from "../imports/templates/addTask/addTask.js";
-import {
-	lists
-} from "../imports/templates/lists/lists.js";
+import { Template } from "meteor/templating";
+
+import  "../imports/templates/addTask/addTask.js";
+import  "../imports/templates/lists/lists.js";
+import "../imports/util/keyboardShortcuts.js";
 
 Template.body.events({
 	"focus, click" (e) {

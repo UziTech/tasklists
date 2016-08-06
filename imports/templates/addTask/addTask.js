@@ -1,16 +1,7 @@
-import {
-	Meteor
-} from "meteor/meteor";
-import {
-	Session
-} from "meteor/session";
-import {
-	Template
-} from "meteor/templating";
-import {
-	getDay,
-	addDays
-} from "../../util/Dates.js";
+import { Meteor } from "meteor/meteor";
+import { Session } from "meteor/session";
+import { Template } from "meteor/templating";
+import { getDay, addDays } from "../../util/Dates.js";
 
 import "./addTask.html";
 import "./addTask.scss";
