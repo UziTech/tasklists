@@ -1,7 +1,7 @@
-#addTaskForm {
+#add-task {
 	float: left;
 
-	#newTask {
+	#new-task {
 		display: inline-block;
 		vertical-align: top;
 	}
@@ -12,7 +12,7 @@
 		position: relative;
 		z-index: 10;
 
-		.color {
+		.default-color {
 			cursor: pointer;
 			display: block;
 			height: 20px;
@@ -46,7 +46,7 @@
 			display: block;
 		}
 		@mixin color-button($name, $bg, $txt) {
-			&[data-default-color="#{$name}"] .color {
+			&[data-default-color="#{$name}"] .default-color {
 				background-color: $bg;
 				color: $txt;
 			}
@@ -75,6 +75,6 @@
 	}
 }
 
-.bulk-edit #addTaskForm #bulk-edit {
+.bulk-edit #add-task #bulk-edit {
 	background-color: #9cf;
 }

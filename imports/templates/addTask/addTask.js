@@ -17,7 +17,7 @@ Template.addTask.helpers({
 });
 
 Template.addTask.events({
-	"submit #newTask" (e) {
+	"submit #new-task" (e) {
 		e.preventDefault();
 		const name = e.target.elements.name.value.trim();
 		if (!name) {
@@ -34,12 +34,12 @@ Template.addTask.events({
 		e.target.reset();
 		e.target.elements.name.focus();
 	},
-	"click .color" (e) {
+	"click .default-color" (e) {
 		var $controls = $(e.target).closest(".controls");
 		var isOpen = $controls.hasClass("open");
 		$(".open").removeClass("open");
 		if (isOpen) {
-			$("#newTask").submit();
+			$("#new-task").submit();
 		} else {
 			$controls.addClass("open");
 		}
@@ -47,7 +47,7 @@ Template.addTask.events({
 	"click .color-button" (e) {
 		$(".open").removeClass("open");
 		Session.set("defaultColor", e.target.dataset.color);
-		$("#newTask").submit();
+		$("#new-task").submit();
 	},
 	"click #bulk-edit" () {
 		$(document.body).toggleClass("bulk-edit");
