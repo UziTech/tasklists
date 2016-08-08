@@ -1,15 +1,77 @@
 import { Meteor } from "meteor/meteor";
 
-function shouldMoveToPrev($name) {
-	return false;
+function getRangeFromPoint(x, y) {
+	var range = null;
+
+	// First try ie way
+	if (document.body.createTextRange) {
+		range = document.body.createTextRange();
+		range.moveToPoint(x, y);
+		range.select();
+		range = window.getSelection().getRangeAt(0);
+	} else if (document.createRange) {
+		// Try the standards-based way next
+		if (document.caretPositionFromPoint) {
+			var pos = document.caretPositionFromPoint(x, y);
+			range = document.createRange();
+			range.setStart(pos.offsetNode, pos.offset);
+			range.collapse(true);
+		}
+
+		// Next, the WebKit way
+		else if (document.caretRangeFromPoint) {
+			range = document.caretRangeFromPoint(x, y);
+		}
+	}
+
+	return range;
 }
 
-function shouldMoveToNext($name) {
-	return false;
+function setCursorOnLastLine(node) {
+	var nodeRect = node.getBoundingClientRect();
+	var selection = getSelection();
+	var selectionRects = selection.getRangeAt(0).getClientRects();
+	var selectionsRect = selectionRects[selectionRects.length - 1];
+	var range = getRangeFromPoint(selectionsRect.left, nodeRect.bottom - 5);
+	selection.removeAllRanges();
+	selection.addRange(range);
+}
+
+function setCursorOnFirstLine(node) {
+	var nodeRect = node.getBoundingClientRect();
+	var selection = getSelection();
+	var selectionRects = selection.getRangeAt(0).getClientRects();
+	var selectionsRect = selectionRects[selectionRects.length - 1];
+	var range = getRangeFromPoint(selectionsRect.left, nodeRect.top + 4);
+	selection.removeAllRanges();
+	selection.addRange(range);
+}
+
+function isOnLastLine(node) {
+	const selection = document.getSelection();
+	if (!selection.isCollapsed) {
+		return false;
+	}
+	var nodeRect = node.getBoundingClientRect();
+	var selectionRects = selection.getRangeAt(0).getClientRects();
+	var selectionsRect = selectionRects[selectionRects.length - 1];
+	return nodeRect.bottom - 5 === selectionsRect.bottom;
+}
+
+function isOnFirstLine(node) {
+	const selection = document.getSelection();
+	if (!selection.isCollapsed) {
+		return false;
+	}
+	var nodeRect = node.getBoundingClientRect();
+	var selectionRects = selection.getRangeAt(0).getClientRects();
+	var selectionsRect = selectionRects[selectionRects.length - 1];
+	return nodeRect.top + 4 === selectionsRect.top;
 }
 
 function shouldMoveToDefaultColor($input) {
-	return false;
+	var textLength = $input.val().length;
+	return ($input[0].selectionStart === textLength && $input[0].selectionEnd === textLength);
 }
 
 if (Meteor.isClient) {
@@ -22,6 +84,13 @@ if (Meteor.isClient) {
 			// TODO: arrows|home|end depend on e.target
 			let $target
 			switch (e.which) {
+				case 71:
+					// g
+					if (e.ctrlKey) {
+						e.preventDefault();
+						console.log(document.getSelection());
+					}
+					break;
 				case 113:
 					// f2
 					e.preventDefault();
@@ -84,10 +153,12 @@ if (Meteor.isClient) {
 					// up
 					$target = $(e.target);
 					if ($target.hasClass("name")) {
-						if (shouldMoveToNext($target)) {
+						if ($target.length > 0 && isOnFirstLine($target[0])) {
 							e.preventDefault();
-							const $task = $target.closest(".task");
-							$task.prev().find(".name").focus();
+							const $task = $target.closest(".task").prev();
+							if ($task.length > 0) {
+								setCursorOnLastLine($task.find(".name")[0]);
+							}
 						}
 					} else if ($target.hasClass("move-button")) {
 						e.preventDefault();
@@ -130,7 +201,8 @@ if (Meteor.isClient) {
 						$(".open").removeClass("open");
 						$controls.find(".ellip").focus();
 					} else if ($target.is("#new-task input")) {
-						if (shouldMoveToDefaultColor($target)) {
+						var textLength = $target.val().length;
+						if ($target[0].selectionStart === textLength && $target[0].selectionEnd === textLength) {
 							e.preventDefault();
 							$("#add-task").find(".default-color").focus();
 						}
@@ -143,10 +215,12 @@ if (Meteor.isClient) {
 					// down
 					$target = $(e.target);
 					if ($target.hasClass("name")) {
-						if (shouldMoveToNext($target)) {
+						if ($target.length > 0 && isOnLastLine($target[0])) {
 							e.preventDefault();
-							const $task = $target.closest(".task");
-							$task.next().find(".name").focus();
+							const $task = $target.closest(".task").next();
+							if ($task.length > 0) {
+								setCursorOnFirstLine($task.find(".name")[0]);
+							}
 						}
 					} else if ($target.hasClass("move")) {
 						e.preventDefault();
