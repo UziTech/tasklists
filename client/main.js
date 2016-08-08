@@ -1,7 +1,7 @@
 import { Template } from "meteor/templating";
 
 import  "../imports/templates/addTask/addTask.js";
-import  "../imports/templates/lists/lists.js";
+import  "../imports/templates/lists/list.js";
 import "../imports/util/keyboardShortcuts.js";
 
 Template.body.events({

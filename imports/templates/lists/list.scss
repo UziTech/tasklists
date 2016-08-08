@@ -1,0 +1,44 @@
+.list {
+	flex: 1 0 50px;
+	border-top: 1px solid #333;
+	border-right: 1px solid #333;
+	writing-mode: vertical-rl;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+
+	h1 {
+		cursor: pointer;
+		margin: 7px;
+		text-transform: capitalize;
+	}
+
+	.tasks {
+		flex-grow: 1;
+		display: none;
+		overflow-y: auto;
+		padding: 7px;
+	}
+
+	&:last-child {
+		border-right: 0;
+	}
+
+	&.active:not(.user-closed),
+	&.user-open {
+		flex: 2 0 200px;
+		writing-mode: horizontal-tb;
+
+		h1 {
+			text-align: center;
+
+			.count {
+				display: none;
+			}
+		}
+
+		.tasks {
+			display: block;
+		}
+	}
+}
