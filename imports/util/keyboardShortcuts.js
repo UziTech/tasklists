@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
 
 function setCursorAtPoint(x, y) {
-	var range = null;
+	let range = null;
 
 	// First try ie way
 	if (document.body.createTextRange) {
@@ -11,7 +11,7 @@ function setCursorAtPoint(x, y) {
 	} else if (document.createRange) {
 		// Try the standards-based way next
 		if (document.caretPositionFromPoint) {
-			var pos = document.caretPositionFromPoint(x, y);
+			const pos = document.caretPositionFromPoint(x, y);
 			range = document.createRange();
 			range.setStart(pos.offsetNode, pos.offset);
 			range.collapse(true);
@@ -21,7 +21,7 @@ function setCursorAtPoint(x, y) {
 		else if (document.caretRangeFromPoint) {
 			range = document.caretRangeFromPoint(x, y);
 		}
-		var selection = getSelection();
+		const selection = getSelection();
 		selection.removeAllRanges();
 		selection.addRange(range);
 	}
@@ -29,19 +29,19 @@ function setCursorAtPoint(x, y) {
 }
 
 function getSelectionRect() {
-	var selectionRects = getSelection().getRangeAt(0).getClientRects();
+	const selectionRects = getSelection().getRangeAt(0).getClientRects();
 	return selectionRects[selectionRects.length - 1];
 }
 
 function setCursorOnLastLine(node) {
-	var nodeRect = node.getBoundingClientRect();
-	var selectionRect = getSelectionRect();
+	const nodeRect = node.getBoundingClientRect();
+	const selectionRect = getSelectionRect();
 	setCursorAtPoint(selectionRect.left, nodeRect.bottom - 5);
 }
 
 function setCursorOnFirstLine(node) {
-	var nodeRect = node.getBoundingClientRect();
-	var selectionRect = getSelectionRect();
+	const nodeRect = node.getBoundingClientRect();
+	const selectionRect = getSelectionRect();
 	setCursorAtPoint(selectionRect.left, nodeRect.top + 4);
 }
 
@@ -49,8 +49,8 @@ function isCursorOnLastLine(node) {
 	if (!getSelection().isCollapsed) {
 		return false;
 	}
-	var nodeRect = node.getBoundingClientRect();
-	var selectionRect = getSelectionRect();
+	const nodeRect = node.getBoundingClientRect();
+	const selectionRect = getSelectionRect();
 	return nodeRect.bottom - 5 === selectionRect.bottom;
 }
 
@@ -58,13 +58,13 @@ function isCursorOnFirstLine(node) {
 	if (!getSelection().isCollapsed) {
 		return false;
 	}
-	var nodeRect = node.getBoundingClientRect();
-	var selectionRect = getSelectionRect();
+	const nodeRect = node.getBoundingClientRect();
+	const selectionRect = getSelectionRect();
 	return nodeRect.top + 4 === selectionRect.top;
 }
 
 function shouldMoveToDefaultColor($input) {
-	var textLength = $input.val().length;
+	const textLength = $input.val().length;
 	return ($input[0].selectionStart === textLength && $input[0].selectionEnd === textLength);
 }
 
@@ -199,7 +199,7 @@ if (Meteor.isClient) {
 						$(".open").removeClass("open");
 						$controls.find(".ellip").focus();
 					} else if ($target.is("#new-task input")) {
-						var textLength = $target.val().length;
+						const textLength = $target.val().length;
 						if ($target[0].selectionStart === textLength && $target[0].selectionEnd === textLength) {
 							e.preventDefault();
 							$("#add-task").find(".default-color").focus();
