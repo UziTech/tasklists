@@ -17,7 +17,7 @@ function setCursorAtPoint(x, y) {
 			range.collapse(true);
 		}
 
-		// Next, the WebKit way
+		// finally try the WebKit way
 		else if (document.caretRangeFromPoint) {
 			range = document.caretRangeFromPoint(x, y);
 		}
@@ -76,7 +76,7 @@ if (Meteor.isClient) {
 			// TODO: f1: help dialog
 			// TODO: Ctrl + f: search
 			// TODO: arrows|home|end depend on e.target
-			let $target
+			const $target = $(e.target);
 			switch (e.which) {
 				// case 71:
 				// 	// g
@@ -92,61 +92,64 @@ if (Meteor.isClient) {
 					break;
 				case 35:
 					// end
-					$target = $(e.target);
-					if ($target.is(".move-buttons button")) {
+					if ($target.is(".controls .move-buttons button")) {
 						e.preventDefault();
 						const $moveButtons = $target.closest(".move-buttons");
 						$moveButtons.addClass("open").find("button").last().focus();
-					} else if ($target.is(".color-buttons button")) {
+					} else if ($target.is(".controls .color-buttons button")) {
 						e.preventDefault();
 						const $colorButtons = $target.closest(".color-buttons");
 						$colorButtons.addClass("open").find("button").last().focus();
+					} else if ($target.is(".controls button")) {
+						e.preventDefault();
 					}
 					break;
 				case 36:
 					// home
-					$target = $(e.target);
-					if ($target.is(".move-buttons button")) {
+					if ($target.is(".controls .move-buttons button")) {
 						e.preventDefault();
 						const $moveButtons = $target.closest(".move-buttons");
 						$moveButtons.removeClass("open").find("button").first().focus();
-					} else if ($target.is(".color-buttons button")) {
+					} else if ($target.is(".controls .color-buttons button")) {
 						e.preventDefault();
 						const $colorButtons = $target.closest(".color-buttons");
 						$colorButtons.removeClass("open").find("button").first().focus();
+					} else if ($target.is(".controls button")) {
+						e.preventDefault();
 					}
 					break;
 				case 37:
 					// left
-					$target = $(e.target);
-					if ($target.hasClass("done")) {
+					if ($target.is(".controls .done")) {
 						e.preventDefault();
 						const $controls = $target.closest(".controls");
 						$controls.find(".delete").focus();
-					} else if ($target.hasClass("color")) {
+					} else if ($target.is(".controls .color")) {
 						e.preventDefault();
 						const $controls = $target.closest(".controls");
 						$controls.find(".done").focus();
-					} else if ($target.hasClass("move")) {
+					} else if ($target.is(".controls .move")) {
 						e.preventDefault();
 						const $controls = $target.closest(".controls");
 						$controls.find(".color").focus();
-					} else if ($target.hasClass("ellip")) {
+					} else if ($target.is(".controls .ellip")) {
 						e.preventDefault();
 						const $controls = $target.closest(".controls");
 						$controls.addClass("open").find(".move").focus();
-					} else if ($target.hasClass("default-color")) {
+					} else if ($target.is(".controls .default-color")) {
 						e.preventDefault();
 						$("#new-task input").focus().select();
+						getSelection().collapseToEnd();
 					} else if ($target.is("#bulk-edit")) {
 						e.preventDefault();
 						$("#add-task").find(".default-color").focus();
+					} else if ($target.is(".controls button")) {
+						e.preventDefault();
 					}
 					break;
 				case 38:
 					// up
-					$target = $(e.target);
-					if ($target.hasClass("name")) {
+					if ($target.is(".task .name")) {
 						if ($target.length > 0 && isCursorOnFirstLine($target[0])) {
 							e.preventDefault();
 							const $task = $target.closest(".task").prev();
@@ -154,7 +157,7 @@ if (Meteor.isClient) {
 								setCursorOnLastLine($task.find(".name")[0]);
 							}
 						}
-					} else if ($target.hasClass("move-button")) {
+					} else if ($target.is(".controls .move-button")) {
 						e.preventDefault();
 						const $prev = $target.prev(".move-button");
 						if ($prev.length > 0) {
@@ -163,7 +166,7 @@ if (Meteor.isClient) {
 							const $moveButtons = $target.closest(".move-buttons");
 							$moveButtons.removeClass("open").children("button").focus();
 						}
-					} else if ($target.hasClass("color-button")) {
+					} else if ($target.is(".controls .color-button")) {
 						e.preventDefault();
 						const $prev = $target.prev(".color-button");
 						if ($prev.length > 0) {
@@ -172,24 +175,25 @@ if (Meteor.isClient) {
 							const $colorButtons = $target.closest(".color-buttons");
 							$colorButtons.removeClass("open").children("button").focus();
 						}
+					} else if ($target.is(".controls button")) {
+						e.preventDefault();
 					}
 					break;
 				case 39:
 					// right
-					$target = $(e.target);
-					if ($target.hasClass("delete")) {
+					if ($target.is(".controls .delete")) {
 						e.preventDefault();
 						const $controls = $target.closest(".controls");
 						$controls.find(".done").focus();
-					} else if ($target.hasClass("done")) {
+					} else if ($target.is(".controls .done")) {
 						e.preventDefault();
 						const $controls = $target.closest(".controls");
 						$controls.find(".color").focus();
-					} else if ($target.hasClass("color")) {
+					} else if ($target.is(".controls .color")) {
 						e.preventDefault();
 						const $controls = $target.closest(".controls");
 						$controls.find(".move").focus();
-					} else if ($target.hasClass("move")) {
+					} else if ($target.is(".controls .move")) {
 						e.preventDefault();
 						const $controls = $target.closest(".controls");
 						$(".open").removeClass("open");
@@ -200,15 +204,16 @@ if (Meteor.isClient) {
 							e.preventDefault();
 							$("#add-task").find(".default-color").focus();
 						}
-					} else if ($target.hasClass("default-color")) {
+					} else if ($target.is(".controls .default-color")) {
 						e.preventDefault();
 						$("#bulk-edit").focus().select();
+					} else if ($target.is(".controls button")) {
+						e.preventDefault();
 					}
 					break;
 				case 40:
 					// down
-					$target = $(e.target);
-					if ($target.hasClass("name")) {
+					if ($target.is(".task .name")) {
 						if ($target.length > 0 && isCursorOnLastLine($target[0])) {
 							e.preventDefault();
 							const $task = $target.closest(".task").next();
@@ -216,20 +221,22 @@ if (Meteor.isClient) {
 								setCursorOnFirstLine($task.find(".name")[0]);
 							}
 						}
-					} else if ($target.hasClass("move")) {
+					} else if ($target.is(".controls .move")) {
 						e.preventDefault();
 						const $moveButtons = $target.closest(".move-buttons");
 						$moveButtons.addClass("open").find(".move-button").eq(0).focus();
-					} else if ($target.hasClass("move-button")) {
+					} else if ($target.is(".controls .move-button")) {
 						e.preventDefault();
 						$target.next(".move-button").focus();
-					} else if ($target.hasClass("color") || $target.hasClass("default-color")) {
+					} else if ($target.is(".controls .color") || $target.is(".controls .default-color")) {
 						e.preventDefault();
 						const $colorButtons = $target.closest(".color-buttons");
 						$colorButtons.addClass("open").find(".color-button").eq(0).focus();
-					} else if ($target.hasClass("color-button")) {
+					} else if ($target.is(".controls .color-button")) {
 						e.preventDefault();
 						$target.next(".color-button").focus();
+					} else if ($target.is(".controls button")) {
+						e.preventDefault();
 					}
 					break;
 				default:
