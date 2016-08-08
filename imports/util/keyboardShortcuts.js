@@ -45,7 +45,7 @@ function setCursorOnFirstLine(node) {
 	setCursorAtPoint(selectionRect.left, nodeRect.top + 4);
 }
 
-function isOnLastLine(node) {
+function isCursorOnLastLine(node) {
 	if (!getSelection().isCollapsed) {
 		return false;
 	}
@@ -54,7 +54,7 @@ function isOnLastLine(node) {
 	return nodeRect.bottom - 5 === selectionRect.bottom;
 }
 
-function isOnFirstLine(node) {
+function isCursorOnFirstLine(node) {
 	if (!getSelection().isCollapsed) {
 		return false;
 	}
@@ -147,7 +147,7 @@ if (Meteor.isClient) {
 					// up
 					$target = $(e.target);
 					if ($target.hasClass("name")) {
-						if ($target.length > 0 && isOnFirstLine($target[0])) {
+						if ($target.length > 0 && isCursorOnFirstLine($target[0])) {
 							e.preventDefault();
 							const $task = $target.closest(".task").prev();
 							if ($task.length > 0) {
@@ -209,7 +209,7 @@ if (Meteor.isClient) {
 					// down
 					$target = $(e.target);
 					if ($target.hasClass("name")) {
-						if ($target.length > 0 && isOnLastLine($target[0])) {
+						if ($target.length > 0 && isCursorOnLastLine($target[0])) {
 							e.preventDefault();
 							const $task = $target.closest(".task").next();
 							if ($task.length > 0) {
