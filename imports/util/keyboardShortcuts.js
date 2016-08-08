@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 
-function getRangeFromPoint(x, y) {
+function setCursorAtPoint(x, y) {
 	var range = null;
 
 	// First try ie way
@@ -8,7 +8,6 @@ function getRangeFromPoint(x, y) {
 		range = document.body.createTextRange();
 		range.moveToPoint(x, y);
 		range.select();
-		range = window.getSelection().getRangeAt(0);
 	} else if (document.createRange) {
 		// Try the standards-based way next
 		if (document.caretPositionFromPoint) {
@@ -22,51 +21,46 @@ function getRangeFromPoint(x, y) {
 		else if (document.caretRangeFromPoint) {
 			range = document.caretRangeFromPoint(x, y);
 		}
+		var selection = getSelection();
+		selection.removeAllRanges();
+		selection.addRange(range);
 	}
 
-	return range;
+}
+
+function getSelectionRect() {
+	var selectionRects = getSelection().getRangeAt(0).getClientRects();
+	return selectionRects[selectionRects.length - 1];
 }
 
 function setCursorOnLastLine(node) {
 	var nodeRect = node.getBoundingClientRect();
-	var selection = getSelection();
-	var selectionRects = selection.getRangeAt(0).getClientRects();
-	var selectionsRect = selectionRects[selectionRects.length - 1];
-	var range = getRangeFromPoint(selectionsRect.left, nodeRect.bottom - 5);
-	selection.removeAllRanges();
-	selection.addRange(range);
+	var selectionRect = getSelectionRect();
+	setCursorAtPoint(selectionRect.left, nodeRect.bottom - 5);
 }
 
 function setCursorOnFirstLine(node) {
 	var nodeRect = node.getBoundingClientRect();
-	var selection = getSelection();
-	var selectionRects = selection.getRangeAt(0).getClientRects();
-	var selectionsRect = selectionRects[selectionRects.length - 1];
-	var range = getRangeFromPoint(selectionsRect.left, nodeRect.top + 4);
-	selection.removeAllRanges();
-	selection.addRange(range);
+	var selectionRect = getSelectionRect();
+	setCursorAtPoint(selectionRect.left, nodeRect.top + 4);
 }
 
 function isOnLastLine(node) {
-	const selection = document.getSelection();
-	if (!selection.isCollapsed) {
+	if (!getSelection().isCollapsed) {
 		return false;
 	}
 	var nodeRect = node.getBoundingClientRect();
-	var selectionRects = selection.getRangeAt(0).getClientRects();
-	var selectionsRect = selectionRects[selectionRects.length - 1];
-	return nodeRect.bottom - 5 === selectionsRect.bottom;
+	var selectionRect = getSelectionRect();
+	return nodeRect.bottom - 5 === selectionRect.bottom;
 }
 
 function isOnFirstLine(node) {
-	const selection = document.getSelection();
-	if (!selection.isCollapsed) {
+	if (!getSelection().isCollapsed) {
 		return false;
 	}
 	var nodeRect = node.getBoundingClientRect();
-	var selectionRects = selection.getRangeAt(0).getClientRects();
-	var selectionsRect = selectionRects[selectionRects.length - 1];
-	return nodeRect.top + 4 === selectionsRect.top;
+	var selectionRect = getSelectionRect();
+	return nodeRect.top + 4 === selectionRect.top;
 }
 
 function shouldMoveToDefaultColor($input) {
@@ -84,13 +78,13 @@ if (Meteor.isClient) {
 			// TODO: arrows|home|end depend on e.target
 			let $target
 			switch (e.which) {
-				case 71:
-					// g
-					if (e.ctrlKey) {
-						e.preventDefault();
-						console.log(document.getSelection());
-					}
-					break;
+				// case 71:
+				// 	// g
+				// 	if (e.ctrlKey) {
+				// 		e.preventDefault();
+				// 		console.log(getSelection());
+				// 	}
+				// 	break;
 				case 113:
 					// f2
 					e.preventDefault();
