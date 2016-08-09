@@ -1,18 +1,15 @@
 import { Meteor } from "meteor/meteor";
 import { Session } from "meteor/session";
 import { Template } from "meteor/templating";
-import { getDay, addDays } from "../../util/Dates.js";
+import { getDay, addDays } from "../../util/Dates";
+import "../../api/profile";
 
 import "./addTask.html";
 import "./addTask.scss";
 
-Meteor.startup(function () {
-	Session.setDefault("defaultColor", "");
-});
-
 Template.addTask.helpers({
 	defaultColor() {
-		return Session.get("defaultColor");
+		return Meteor.user().profile.defaultColor;
 	}
 });
 
@@ -27,7 +24,7 @@ Template.addTask.events({
 		const due = addDays(start, 1);
 		const priority = 1;
 		const project = "";
-		const color = Session.get("defaultColor");
+		const color = Meteor.user().profile.defaultColor;
 
 		Meteor.call("tasks.insert", name, start, due, priority, project, color);
 
@@ -46,7 +43,7 @@ Template.addTask.events({
 	},
 	"click .color-button" (e) {
 		$(".open").removeClass("open");
-		Session.set("defaultColor", e.target.dataset.color);
+		Meteor.call("users.profile.defaultColor", e.target.dataset.color);
 		$("#new-task").submit();
 	},
 	"click #bulk-edit" () {

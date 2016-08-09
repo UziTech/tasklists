@@ -1,10 +1,10 @@
 import { Template } from "meteor/templating";
-import { Tasks } from "../../api/tasks.js";
-import Dates from "../../util/Dates.js";
+import { Tasks } from "../../api/tasks";
+import Dates from "../../util/Dates";
 
 import "./list.html";
 import "./list.scss";
-import "../task/task.js";
+import "../task/task";
 
 function titleToName(title) {
 	return title.toLowerCase().replace(/\W/g, "");

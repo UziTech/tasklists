@@ -2,7 +2,7 @@ import { Meteor } from "meteor/meteor";
 import { Random } from "meteor/random";
 import { Session } from "meteor/session";
 import { Template } from "meteor/templating";
-import Dates from "../../util/Dates.js";
+import Dates from "../../util/Dates";
 
 import "./task.html";
 import "./task.scss";

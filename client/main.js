@@ -1,9 +1,9 @@
 import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
 
-import "../imports/templates/addTask/addTask.js";
-import "../imports/templates/lists/list.js";
-import "../imports/util/keyboardShortcuts.js";
+import "../imports/templates/addTask/addTask";
+import "../imports/templates/lists/list";
+import "../imports/util/keyboardShortcuts";
 
 // add a11y attributes to login buttons
 function addA11y() {
