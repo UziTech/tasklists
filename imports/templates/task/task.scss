@@ -33,6 +33,7 @@
 		}
 
 		.hidden-controls {
+			margin-right: 5px;
 			display: none;
 			height: 20px;
 			overflow: visible;
@@ -101,7 +102,6 @@
 
 			.move-buttons {
 				margin-left: 5px;
-				margin-right: 5px;
 
 				.move {
 					cursor: pointer;

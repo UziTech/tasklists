@@ -135,7 +135,13 @@ if (Meteor.isClient) {
 					} else if ($target.is(".controls .ellip")) {
 						e.preventDefault();
 						const $controls = $target.closest(".controls");
-						$controls.addClass("open").find(".move").focus();
+						$controls.addClass("open");
+						const $move = $controls.find(".move");
+						if ($move.length > 0) {
+							$move.focus();
+						} else {
+							$controls.find(".color").focus();
+						}
 					} else if ($target.is(".controls .default-color")) {
 						e.preventDefault();
 						$("#new-task input").focus().select();
@@ -192,7 +198,13 @@ if (Meteor.isClient) {
 					} else if ($target.is(".controls .color")) {
 						e.preventDefault();
 						const $controls = $target.closest(".controls");
-						$controls.find(".move").focus();
+						const $move = $controls.find(".move");
+						if ($move.length > 0) {
+							$move.focus();
+						} else {
+							$(".open").removeClass("open");
+							$controls.find(".ellip").focus();
+						}
 					} else if ($target.is(".controls .move")) {
 						e.preventDefault();
 						const $controls = $target.closest(".controls");
