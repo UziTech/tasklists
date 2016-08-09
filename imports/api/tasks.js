@@ -113,7 +113,7 @@ Meteor.methods({
 
 		var task = Tasks.findOne(taskId);
 
-		if (task.name !== name) {
+		if (task && task.name !== name) {
 			Tasks.update(taskId, {
 				$set: {
 					name,
