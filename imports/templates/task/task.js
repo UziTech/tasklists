@@ -7,6 +7,27 @@ import Dates from "../../util/Dates";
 import "./task.html";
 import "./task.scss";
 
+function allowIBtags(html) {
+	return sanitizeHtml(html, ["i", "b"]);
+}
+/**
+ * Sanatize html tags
+ * @param  {string} html HTML to sanitize
+ * @param  {string|string[]} allowedTags The tags to allow in the HTML
+ * @return {string} The HTML with the start of unwanted tags changed to &lt;
+ */
+function sanitizeHtml(html, allowedTags) {
+	if (!(allowedTags instanceof Array)) {
+		allowedTags = (typeof allowedTags === "string" ? allowedTags.split(" ") : []);
+	}
+	return html.replace(/(<)(\/?)(\w*)/g, function (match, p1, p2, p3) {
+		if (!allowedTags.includes(p3)) {
+			p1 = "&lt;";
+		}
+		return p1 + p2 + p3;
+	});
+}
+
 Meteor.startup(function () {
 
 	// store clientId for task.lastClientId to prevent multiple people editing the same task
@@ -18,7 +39,7 @@ Meteor.startup(function () {
 		// enable the plugin on .name elements that are already rendered
 		$(".task .name").toTextarea({
 			allowHTML: true,
-			allowImg: true,
+			allowImg: false,
 		});
 	});
 });
@@ -28,13 +49,13 @@ Template.task.onRendered(function () {
 
 	// set the text to the data-name attribute value
 	// which is the reactive name
-	$name.html($name.data().name);
+	$name.html(allowIBtags($name.data().name));
 
 	// if toTextarea plugin is loaded enable it
 	if ($name.toTextarea) {
 		$name.toTextarea({
 			allowHTML: true,
-			allowImg: true,
+			allowImg: false,
 		});
 	}
 });
@@ -47,14 +68,14 @@ Template.task.helpers({
 		if (!$name.is(":focus")) {
 
 			// set .name text to this.name
-			$name.html(this.name);
-		} else if (this.lastClientId !== Session.get("clientId") && this.name !== $name.html()) {
+			$name.html(allowIBtags(this.name));
+		} else if (this.lastClientId !== Session.get("clientId") && allowIBtags(this.name) !== $name.html()) {
 
 			// blur .name and set text to this.name
-			$name.blur().html(this.name);
+			$name.blur().html(allowIBtags(this.name));
 		}
 
-		return this.name;
+		return allowIBtags(this.name);
 	}
 });
 
@@ -131,15 +152,22 @@ Template.task.events({
 		Meteor.call("tasks.color", this._id, e.target.dataset.color);
 	},
 	"input .name" (e) {
+
+		if (Session.equals("allowHotCodePush", true)) {
+
+			// dont-allow hot code push when typing
+			Session.set("allowHotCodePush", false);
+			$(e.target).one("blur", function () {
+				Session.set("allowHotCodePush", true);
+			});
+		}
+
 		if (this.changeTimeout) {
 			Meteor.clearTimeout(this.changeTimeout);
 		}
 		const task = this;
 		this.changeTimeout = Meteor.setTimeout(function () {
-			Meteor.call("tasks.edit", task._id, e.target.innerHTML, Session.get("clientId"));
+			Meteor.call("tasks.edit", task._id, allowIBtags(e.target.innerHTML), Session.get("clientId"));
 		}, 350);
-	},
-	"change .name" (e) {
-		Meteor.call("tasks.edit", this._id, e.target.innerHTML, Session.get("clientId"));
 	},
 });
