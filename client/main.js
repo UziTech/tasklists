@@ -4,6 +4,7 @@ import { Template } from "meteor/templating";
 import "../imports/templates/addTask/addTask";
 import "../imports/templates/lists/list";
 import "../imports/util/keyboardShortcuts";
+import "../imports/util/onMigrate";
 
 // add a11y attributes to login buttons
 function addA11y() {
