@@ -296,10 +296,10 @@
 							if (!$(this).data().disabled) {
 								selectAllText.call(this);
 							}
-						})
-						.on("keypress.toTextarea keyup.toTextarea", function () {
-							$(this).trigger("input");
 						});
+						// .on("keypress.toTextarea", function () {
+						// 	$(this).trigger("input");
+						// });
 					if (placeholder) {
 						$this.attr({
 							"data-placeholder": placeholder
