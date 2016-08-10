@@ -36,20 +36,20 @@ function getSelectionRect() {
 function setCursorOnLastLine(node) {
 	const nodeRect = node.getBoundingClientRect();
 	const selectionRect = getSelectionRect();
-	setCursorAtPoint(selectionRect.left, nodeRect.bottom - 5);
+	setCursorAtPoint(selectionRect.left, nodeRect.bottom - 1);
 }
 
 function setCursorOnFirstLine(node) {
 	const nodeRect = node.getBoundingClientRect();
 	const selectionRect = getSelectionRect();
-	setCursorAtPoint(selectionRect.left, nodeRect.top + 4);
+	setCursorAtPoint(selectionRect.left, nodeRect.top);
 }
 
 function isCursorOnLastLine(node) {
 	if (!getSelection().isCollapsed) {
 		return false;
 	}
-	if (!node.hasChildNodes()) {
+	if (!node.hasChildNodes() || node.innerHTML === "") {
 		return true;
 	}
 	const nodeRect = node.getBoundingClientRect();
@@ -61,7 +61,7 @@ function isCursorOnFirstLine(node) {
 	if (!getSelection().isCollapsed) {
 		return false;
 	}
-	if (!node.hasChildNodes()) {
+	if (!node.hasChildNodes() || node.innerHTML === "") {
 		return true;
 	}
 	const nodeRect = node.getBoundingClientRect();
