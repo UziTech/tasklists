@@ -89,6 +89,7 @@
 		// make the cursor there
 		sel.removeAllRanges();
 		sel.addRange(range);
+		this.normalize();
 	};
 
 	var insertHTMLAtCursor = function (html, x, y) {
@@ -120,6 +121,7 @@
 		// make the cursor there
 		sel.removeAllRanges();
 		sel.addRange(range);
+		this.normalize();
 	};
 
 	var addImgOnDrop = function (file, caretX, caretY) {
