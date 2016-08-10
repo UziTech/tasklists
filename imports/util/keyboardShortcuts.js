@@ -49,18 +49,24 @@ function isCursorOnLastLine(node) {
 	if (!getSelection().isCollapsed) {
 		return false;
 	}
+	if (!node.hasChildNodes()) {
+		return true;
+	}
 	const nodeRect = node.getBoundingClientRect();
 	const selectionRect = getSelectionRect();
-	return nodeRect.bottom - 5 === selectionRect.bottom;
+	return nodeRect && selectionRect && nodeRect.bottom - 5 === selectionRect.bottom;
 }
 
 function isCursorOnFirstLine(node) {
 	if (!getSelection().isCollapsed) {
 		return false;
 	}
+	if (!node.hasChildNodes()) {
+		return true;
+	}
 	const nodeRect = node.getBoundingClientRect();
 	const selectionRect = getSelectionRect();
-	return nodeRect.top + 4 === selectionRect.top;
+	return nodeRect && selectionRect && nodeRect.top + 4 === selectionRect.top;
 }
 
 function shouldMoveToDefaultColor($input) {
