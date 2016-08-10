@@ -16,7 +16,10 @@ Meteor.startup(function () {
 	$.getScript("/js/jquery.toTextarea.js", function () {
 
 		// enable the plugin on .name elements that are already rendered
-		$(".task .name").toTextarea();
+		$(".task .name").toTextarea({
+			allowHTML: true,
+			allowImg: true,
+		});
 	});
 });
 
@@ -25,11 +28,14 @@ Template.task.onRendered(function () {
 
 	// set the text to the data-name attribute value
 	// which is the reactive name
-	$name.text($name.data().name);
+	$name.html($name.data().name);
 
 	// if toTextarea plugin is loaded enable it
 	if ($name.toTextarea) {
-		$name.toTextarea();
+		$name.toTextarea({
+			allowHTML: true,
+			allowImg: true,
+		});
 	}
 });
 
@@ -41,11 +47,11 @@ Template.task.helpers({
 		if (!$name.is(":focus")) {
 
 			// set .name text to this.name
-			$name.text(this.name);
-		} else if (this.lastClientId !== Session.get("clientId") && this.name !== $name.text()) {
+			$name.html(this.name);
+		} else if (this.lastClientId !== Session.get("clientId") && this.name !== $name.html()) {
 
 			// blur .name and set text to this.name
-			$name.blur().text(this.name);
+			$name.blur().html(this.name);
 		}
 
 		return this.name;
@@ -130,10 +136,10 @@ Template.task.events({
 		}
 		const task = this;
 		this.changeTimeout = Meteor.setTimeout(function () {
-			Meteor.call("tasks.edit", task._id, e.target.textContent, Session.get("clientId"));
+			Meteor.call("tasks.edit", task._id, e.target.innerHTML, Session.get("clientId"));
 		}, 350);
 	},
 	"change .name" (e) {
-		Meteor.call("tasks.edit", this._id, e.target.textContent, Session.get("clientId"));
+		Meteor.call("tasks.edit", this._id, e.target.innerHTML, Session.get("clientId"));
 	},
 });

@@ -168,6 +168,8 @@
 .bulk-edit .task .controls,
 .task .controls.open,
 .task .controls:hover {
+	border-radius: 10px 0 0 10px;
+
 	.hidden-controls {
 		display: flex;
 
