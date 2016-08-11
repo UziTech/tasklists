@@ -220,12 +220,8 @@ Template.list.helpers({
 		return titleToName(this.title);
 	},
 	listActive() {
-		if (this.title === "Done") {
-			return false;
-		}
-
-		const tasks = getTasks(this.title);
-		return tasks && tasks.count() > 0;
+			const tasks = getTasks(this.title);
+		return tasks && tasks.count() > 0 && ["Today", "Late"].includes(this.title);
 	},
 	tasksCount() {
 		const tasks = getTasks(this.title);
