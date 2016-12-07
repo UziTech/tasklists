@@ -1,0 +1,12 @@
+<template name="list">
+	<div id="{{name}}" class="list {{#if listActive}}active{{/if}}">
+		<div class="header">
+			<h1><span class="count">{{ tasksCount }}</span> {{title}}</h1>
+		</div>
+		<div class="tasks">
+			{{#each tasks}}
+				{{> task}}
+			{{/each}}
+		</div>
+	</div>
+</template>

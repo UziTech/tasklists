@@ -2,7 +2,9 @@ import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
 
 import "../imports/templates/addTask/addTask";
-import "../imports/templates/lists/list";
+import "../imports/templates/list/list";
+import "../imports/templates/help/help";
+import "../imports/templates/intro/intro";
 import "../imports/util/keyboardShortcuts";
 import "../imports/util/onMigrate";
 

@@ -11,24 +11,22 @@ header {
 	text-align: right;
 	padding: 10px;
 	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 
 	#login-buttons {
-		float: right;
-		position: relative;
+		flex: 0 0 auto;
+		height: 30px;
 
 		.login-text-and-button {
-			& > div {
-				display: inline-block;
-			}
 
 			#login-buttons-image-google {
 				display: inline-block;
-				position: absolute;
-				left: 6px;
-				top: 6px;
 				width: 16px;
 				height: 16px;
 				background-image: url("/images/google-logo.png");
+				vertical-align: middle;
 			}
 
 			#login-buttons-google {
@@ -37,7 +35,7 @@ header {
 				background-color: #006;
 				color: #fff;
 				border-radius: 5px;
-				padding: 3px 5px 3px 25px;
+				padding: 3px 5px;
 
 				&:active {
 					background-color: #003;
@@ -58,9 +56,6 @@ header {
 				background-color: transparent;
 				background-repeat: no-repeat;
 				background-image: url("/images/lock.png");
-				position: absolute;
-				top: 0;
-				right: 0;
 			}
 		}
 	}

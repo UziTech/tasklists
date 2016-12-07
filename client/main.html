@@ -7,7 +7,9 @@
 	<header>
 		{{#if currentUser}}
 			{{> addTask}}
+			{{> help}}
 		{{/if}}
+
 		{{> loginButtons}}
 	</header>
 	<main>
@@ -21,6 +23,8 @@
 			{{> list title="This Month" }}
 			{{> list title="Next Month" }}
 			{{> list title="Later" }}
+		{{else}}
+			{{> intro}}
 		{{/if}}
 	</main>
 </body>
