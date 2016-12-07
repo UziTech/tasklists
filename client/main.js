@@ -43,7 +43,7 @@ Template.body.events({
 	"focus, click" (e) {
 
 		// close any open controls on focusing/clicking something else
-		if (!e.target.closest(".controls")) {
+		if (!$(e.target).closest(".controls")) {
 			$(".open").removeClass("open");
 		}
 	},
