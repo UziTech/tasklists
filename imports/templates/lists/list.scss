@@ -2,7 +2,7 @@
 	flex: 1 0 50px;
 	border-top: 1px solid #333;
 	border-right: 1px solid #333;
-	writing-mode: vertical-rl;
+	//writing-mode: vertical-rl;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
@@ -11,6 +11,10 @@
 		cursor: pointer;
 		margin: 7px;
 		text-transform: capitalize;
+		transform: rotate(90deg);
+		transform-origin: 0.5em center 0;
+		white-space: nowrap;
+		position: absolute;
 	}
 
 	.tasks {
@@ -27,10 +31,12 @@
 	&.active:not(.user-closed),
 	&.user-open {
 		flex: 2 0 200px;
-		writing-mode: horizontal-tb;
+		//writing-mode: horizontal-tb;
 
 		h1 {
 			text-align: center;
+			position: static;
+			transform: rotate(0deg);
 
 			.count {
 				display: none;
