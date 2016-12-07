@@ -234,16 +234,16 @@ Template.list.helpers({
 
 Template.list.events({
 	"click h1" (e) {
-		const list = e.target.closest(".list");
-		var active = list.classList.contains("active");
-		var userOpen = list.classList.contains("user-open");
-		var userClosed = list.classList.contains("user-closed");
+		const $list = $(e.target).closest(".list");
+		var active = $list.hasClass("active");
+		var userOpen = $list.hasClass("user-open");
+		var userClosed = $list.hasClass("user-closed");
 		if (userOpen || (active && !userClosed)) {
-			list.classList.remove("user-open");
-			list.classList.add("user-closed");
+			$list.removeClass("user-open");
+			$list.addClass("user-closed");
 		} else {
-			list.classList.remove("user-closed");
-			list.classList.add("user-open");
+			$list.removeClass("user-closed");
+			$list.addClass("user-open");
 		}
 	}
 });
