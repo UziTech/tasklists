@@ -7,14 +7,18 @@
 	display: flex;
 	flex-direction: column;
 
-	h1 {
-		cursor: pointer;
-		margin: 7px;
-		text-transform: capitalize;
-		transform: rotate(90deg);
-		transform-origin: 0.5em center 0;
-		white-space: nowrap;
-		position: absolute;
+	.header {
+		position: relative;
+
+		h1 {
+			cursor: pointer;
+			margin: 7px;
+			text-transform: capitalize;
+			transform: rotate(90deg);
+			transform-origin: 0.5em center 0;
+			white-space: nowrap;
+			position: absolute;
+		}
 	}
 
 	.tasks {
@@ -32,14 +36,17 @@
 	&.user-open {
 		flex: 2 0 200px;
 		//writing-mode: horizontal-tb;
-
-		h1 {
-			text-align: center;
+		.header {
 			position: static;
-			transform: rotate(0deg);
 
-			.count {
-				display: none;
+			h1 {
+				text-align: center;
+				position: static;
+				transform: rotate(0deg);
+
+				.count {
+					display: none;
+				}
 			}
 		}
 
