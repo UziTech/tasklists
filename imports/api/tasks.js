@@ -82,6 +82,7 @@ Meteor.methods({
 		if (task.start.getTime() !== start.getTime() || task.due.getTime() !== due.getTime()) {
 			Tasks.update(taskId, {
 				$set: {
+					doneAt: false,
 					start,
 					due
 				},
