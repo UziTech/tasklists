@@ -4,7 +4,7 @@
 		<div class="controls">
 			<span class="hidden-controls">
 				<button class="delete" title="Delete">&times;</button>
-				<button class="done" title="Done">&check;</button>
+				<button class="done" title="Done" role="checkbox" aria-checked="{{isDone}}">{{#if isDone}}&check;{{/if}}</button>
 				<span class="color-buttons">
 					<button class="color" title="Color"></button>
 					<div class="colors">

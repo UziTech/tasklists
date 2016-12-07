@@ -61,6 +61,9 @@ Template.task.onRendered(function () {
 });
 
 Template.task.helpers({
+	isDone(){
+		return !!this.doneAt;
+	},
 	dataName() {
 
 		// check if this .name has focus
