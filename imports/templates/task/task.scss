@@ -80,9 +80,11 @@
 					width: 20px;
 					height: 20px;
 					padding: 0;
-					border: 0;
+					border: 2px solid #330;
+					border-radius: 3px;
 					background-image: url("/images/color-button.png");
 					background-repeat: no-repeat;
+					background-position: center;
 				}
 
 				.color-button {
