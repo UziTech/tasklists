@@ -1,5 +1,4 @@
 import { Meteor } from "meteor/meteor";
-import { Session } from "meteor/session";
 import { Template } from "meteor/templating";
 import { getDay, addDays } from "../../util/Dates";
 import "../../api/profile";
@@ -46,8 +45,5 @@ Template.addTask.events({
 		Meteor.call("users.profile.defaultColor", e.target.dataset.color);
 		$("#new-task").submit();
 	},
-	"click #bulk-edit" () {
-		$(document.body).toggleClass("bulk-edit");
-	}
 
 });

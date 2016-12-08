@@ -7,6 +7,7 @@
 	<header>
 		{{#if currentUser}}
 			{{> addTask}}
+			{{> bulkEdit}}
 			{{> help}}
 		{{/if}}
 
@@ -24,7 +25,9 @@
 			{{> list title="Next Month" }}
 			{{> list title="Later" }}
 		{{else}}
-			{{> intro}}
+			{{#if Template.subscriptionsReady}}
+				{{> intro}}
+			{{/if}}
 		{{/if}}
 	</main>
 </body>

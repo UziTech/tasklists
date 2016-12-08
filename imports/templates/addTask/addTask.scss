@@ -67,20 +67,4 @@
 		@include color-button("blue", #00f, #fff);
 		@include color-button("fuchsia", #f0f, #fff);
 	}
-
-	#bulk-edit {
-		display: inline-block;
-		float: right;
-		cursor: pointer;
-		vertical-align: top;
-		background: #000 url("/images/bulk-edit.png") center no-repeat;
-		width: 30px;
-		height: 30px;
-		border: 0;
-		border-radius: 50%;
-	}
-}
-
-.bulk-edit #add-task #bulk-edit {
-	background-color: #369;
 }

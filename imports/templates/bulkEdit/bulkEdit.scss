@@ -1,0 +1,17 @@
+#bulk-edit {
+	button {
+		display: inline-block;
+		float: right;
+		cursor: pointer;
+		vertical-align: top;
+		background: #000 url("/images/bulk-edit.png") center no-repeat;
+		width: 30px;
+		height: 30px;
+		border: 0;
+		border-radius: 50%;
+	}
+}
+
+.bulk-edit #bulk-edit button {
+	background-color: #369;
+}
