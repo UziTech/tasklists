@@ -1,4 +1,5 @@
 .list {
+	cursor: pointer;
 	flex: 1 0 50px;
 	border-top: 1px solid #333;
 	border-right: 1px solid #333;
@@ -9,10 +10,10 @@
 	flex-direction: column;
 
 	.header {
+		cursor: pointer;
 		position: relative;
 
 		h1 {
-			cursor: pointer;
 			margin: 7px;
 			text-transform: capitalize;
 			transform: rotate(90deg);
@@ -35,8 +36,9 @@
 
 	&.active:not(.user-closed),
 	&.user-open {
+		cursor: default;
 		flex: 2 0 200px;
-		//writing-mode: horizontal-tb;
+
 		.header {
 			position: static;
 

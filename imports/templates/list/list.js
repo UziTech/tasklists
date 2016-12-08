@@ -220,7 +220,7 @@ Template.list.helpers({
 		return titleToName(this.title);
 	},
 	listActive() {
-			const tasks = getTasks(this.title);
+		const tasks = getTasks(this.title);
 		return tasks && tasks.count() > 0 && ["Today", "Late"].includes(this.title);
 	},
 	tasksCount() {
@@ -233,17 +233,16 @@ Template.list.helpers({
 });
 
 Template.list.events({
-	"click h1" (e) {
+	"click" (e) {
 		const $list = $(e.target).closest(".list");
-		const active = $list.hasClass("active");
-		const userOpen = $list.hasClass("user-open");
-		const userClosed = $list.hasClass("user-closed");
-		if (userOpen || (active && !userClosed)) {
-			$list.removeClass("user-open");
-			$list.addClass("user-closed");
+		const isOpen = $list.hasClass("user-open") || ($list.hasClass("active") && !$list.hasClass("user-closed"));
+
+		if (isOpen) {
+			if ($(e.target).closest(".header").length > 0) {
+				$list.removeClass("user-open").addClass("user-closed");
+			}
 		} else {
-			$list.removeClass("user-closed");
-			$list.addClass("user-open");
+			$list.removeClass("user-closed").addClass("user-open");
 		}
 	}
 });
