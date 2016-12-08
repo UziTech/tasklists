@@ -3,9 +3,9 @@ import { Template } from "meteor/templating";
 import "./help.html";
 import "./help.scss";
 
-var transitioning = false;
-var $overlay;
-var $dialog;
+let transitioning = false;
+let $overlay;
+let $dialog;
 
 function showDialog() {
 	if (!transitioning) {
