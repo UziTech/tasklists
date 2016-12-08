@@ -235,9 +235,9 @@ Template.list.helpers({
 Template.list.events({
 	"click h1" (e) {
 		const $list = $(e.target).closest(".list");
-		var active = $list.hasClass("active");
-		var userOpen = $list.hasClass("user-open");
-		var userClosed = $list.hasClass("user-closed");
+		const active = $list.hasClass("active");
+		const userOpen = $list.hasClass("user-open");
+		const userClosed = $list.hasClass("user-closed");
 		if (userOpen || (active && !userClosed)) {
 			$list.removeClass("user-open");
 			$list.addClass("user-closed");

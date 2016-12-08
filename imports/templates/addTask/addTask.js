@@ -31,8 +31,8 @@ Template.addTask.events({
 		e.target.elements.name.focus();
 	},
 	"click .default-color" (e) {
-		var $controls = $(e.target).closest(".controls");
-		var isOpen = $controls.hasClass("open");
+		const $controls = $(e.target).closest(".controls");
+		const isOpen = $controls.hasClass("open");
 		$(".open").removeClass("open");
 		if (isOpen) {
 			$("#new-task").submit();

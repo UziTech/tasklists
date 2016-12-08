@@ -77,7 +77,7 @@ Meteor.methods({
 		check(start, Date);
 		check(due, Date);
 
-		var task = Tasks.findOne(taskId);
+		const task = Tasks.findOne(taskId);
 
 		if (task.start.getTime() !== start.getTime() || task.due.getTime() !== due.getTime()) {
 			Tasks.update(taskId, {
@@ -105,7 +105,7 @@ Meteor.methods({
 		check(name, String);
 		check(lastClientId, String);
 
-		var task = Tasks.findOne(taskId);
+		const task = Tasks.findOne(taskId);
 
 		if (task && task.name !== name) {
 			Tasks.update(taskId, {
@@ -130,7 +130,7 @@ Meteor.methods({
 		check(taskId, String);
 		check(color, String);
 
-		var task = Tasks.findOne(taskId);
+		const task = Tasks.findOne(taskId);
 
 		if (task.color !== color) {
 			Tasks.update(taskId, {

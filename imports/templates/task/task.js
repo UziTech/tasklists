@@ -45,7 +45,7 @@ Meteor.startup(function () {
 });
 
 Template.task.onRendered(function () {
-	var $name = $(this.find(".name"));
+	const $name = $(this.find(".name"));
 
 	// set the text to the data-name attribute value
 	// which is the reactive name
@@ -67,7 +67,7 @@ Template.task.helpers({
 	dataName() {
 
 		// check if this .name has focus
-		var $name = $("#" + this._id + " .name");
+		const $name = $("#" + this._id + " .name");
 		if (!$name.is(":focus")) {
 
 			// set .name text to this.name
@@ -84,17 +84,17 @@ Template.task.helpers({
 
 Template.task.events({
 	"click .ellip" (e) {
-		var $controls = $(e.target).closest(".controls");
-		var isOpen = $controls.hasClass("open");
+		const $controls = $(e.target).closest(".controls");
+		const isOpen = $controls.hasClass("open");
 		$(".open").removeClass("open");
 		if (!isOpen) {
 			$controls.addClass("open");
 		}
 	},
 	"click .move" (e) {
-		var $controls = $(e.target).closest(".controls");
-		var $moveButtons = $controls.find(".move-buttons");
-		var isOpen = $moveButtons.hasClass("open");
+		const $controls = $(e.target).closest(".controls");
+		const $moveButtons = $controls.find(".move-buttons");
+		const isOpen = $moveButtons.hasClass("open");
 		$(".open").removeClass("open");
 		$controls.addClass("open");
 		if (!isOpen) {
@@ -102,9 +102,9 @@ Template.task.events({
 		}
 	},
 	"click .color" (e) {
-		var $controls = $(e.target).closest(".controls");
-		var $colorButtons = $controls.find(".color-buttons");
-		var isOpen = $colorButtons.hasClass("open");
+		const $controls = $(e.target).closest(".controls");
+		const $colorButtons = $controls.find(".color-buttons");
+		const isOpen = $colorButtons.hasClass("open");
 		$(".open").removeClass("open");
 		$controls.addClass("open");
 		if (!isOpen) {
