@@ -61,6 +61,11 @@
 
 			[data-color="#{$name}"] {
 				background-color: $bg;
+
+				&:focus,
+				&:hover {
+					background-color: darken($bg, 10%);
+				}
 			}
 		}
 		@include color-button("", #ccc, #000);

@@ -122,6 +122,13 @@
 					height: 20px;
 					padding: 0;
 					display: none;
+					background-color: #ff0;
+					border: 1px solid #fff;
+
+					&:focus,
+					&:hover {
+						background-color: darken(#ff0, 10%);
+					}
 				}
 			}
 		}
@@ -131,6 +138,11 @@
 	@mixin task-color($name, $bg, $txt) {
 		.color-buttons [data-color="#{$name}"] {
 			background-color: $bg;
+
+			&:focus,
+			&:hover {
+				background-color: darken($bg, 10%);
+			}
 		}
 
 		&[data-color="#{$name}"] {
