@@ -8,7 +8,7 @@ let $overlay;
 let $dialog;
 
 function showDialog() {
-	if (!transitioning) {
+	if (!transitioning && $overlay.hasClass("hide")) {
 		transitioning = true;
 		$("body").disableTabindex();
 		$dialog.disableTabindex(true);
@@ -35,7 +35,7 @@ function showDialog() {
 }
 
 function hideDialog() {
-	if (!transitioning) {
+	if (!transitioning && !$overlay.hasClass("hide")) {
 		transitioning = true;
 		$("body").disableTabindex(true);
 		$dialog.disableTabindex();
@@ -83,11 +83,6 @@ Template.help.events({
 	},
 	"click .overlay" (e) {
 		if ($(e.target).hasClass("overlay")) {
-			hideDialog();
-		}
-	},
-	"keydown" (e) {
-		if (e.which === 27) {
 			hideDialog();
 		}
 	},

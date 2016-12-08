@@ -2,14 +2,8 @@ import { Meteor } from "meteor/meteor";
 
 function setCursorAtPoint(x, y) {
 	let range = null;
-
-	// First try ie way
-	if (document.body.createTextRange) {
-		range = document.body.createTextRange();
-		range.moveToPoint(x, y);
-		range.select();
-	} else if (document.createRange) {
-		// Try the standards-based way next
+	if (document.createRange) {
+		// Try the standards-based way
 		if (document.caretPositionFromPoint) {
 			const pos = document.caretPositionFromPoint(x, y);
 			range = document.createRange();
@@ -17,13 +11,20 @@ function setCursorAtPoint(x, y) {
 			range.collapse(true);
 		}
 
-		// finally try the WebKit way
+		// try the WebKit way
 		else if (document.caretRangeFromPoint) {
 			range = document.caretRangeFromPoint(x, y);
 		}
 		const selection = getSelection();
 		selection.removeAllRanges();
 		selection.addRange(range);
+	}
+
+	// try ie way
+	else if (document.body.createTextRange) {
+		range = document.body.createTextRange();
+		range.moveToPoint(x, y);
+		range.select();
 	}
 
 }
@@ -36,12 +37,14 @@ function getSelectionRect() {
 function setCursorOnLastLine(node) {
 	const nodeRect = node.getBoundingClientRect();
 	const selectionRect = getSelectionRect();
+	node.focus();
 	setCursorAtPoint(selectionRect.left, nodeRect.bottom - 1);
 }
 
 function setCursorOnFirstLine(node) {
 	const nodeRect = node.getBoundingClientRect();
 	const selectionRect = getSelectionRect();
+	node.focus();
 	setCursorAtPoint(selectionRect.left, nodeRect.top);
 }
 
@@ -79,9 +82,7 @@ if (Meteor.isClient) {
 		$(window).on("keydown", function (e) {
 			// cannot bind Ctrl(+Shift)?+(n|t|w) https://bugs.chromium.org/p/chromium/issues/detail?id=5496
 
-			// TODO: f1: help dialog
 			// TODO: Ctrl + f: search
-			// TODO: arrows|home|end depend on e.target
 			const $target = $(e.target);
 			switch (e.which) {
 				// case 71:
@@ -91,10 +92,18 @@ if (Meteor.isClient) {
 				// 		console.log(getSelection());
 				// 	}
 				// 	break;
+				case 112:
+					// f1
+					e.preventDefault();
+					$("#help .help-button").click();
 				case 113:
 					// f2
 					e.preventDefault();
 					$("#new-task input").focus().select();
+					break;
+				case 27:
+					// esc
+					$("#help .overlay").click();
 					break;
 				case 35:
 					// end
