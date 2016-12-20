@@ -9,6 +9,12 @@ import "../imports/templates/intro/intro";
 import "../imports/util/keyboardShortcuts";
 import "../imports/util/onMigrate";
 
+/* expose Dates and Tasks for debugging */
+// import Dates from "../imports/util/Dates";
+// Meteor.Dates = Dates;
+// import { Tasks } from "../imports/api/tasks";
+// Meteor.Tasks = Tasks;
+
 // add a11y attributes to login buttons
 function addA11y() {
 	$("#login-buttons .login-button").each(function () {
