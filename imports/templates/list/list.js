@@ -14,202 +14,220 @@ function getTasks(title) {
 	const name = titleToName(title);
 	switch (name) {
 		case "done":
-			return Tasks.find({
-				doneAt: {
-					$not: false
-				}
-			}, {
-				sort: {
-					doneAt: -1
-				}
-			});
+			{
+				return Tasks.find({
+					doneAt: {
+						$not: false
+					}
+				}, {
+					sort: {
+						doneAt: -1
+					}
+				});
+			}
 		case "late":
-			return Tasks.find({
-				$and: [
-					{
-						doneAt: false
+			{
+				return Tasks.find({
+					$and: [
+						{
+							doneAt: false
 					},
-					{
-						due: {
-							$lt: Dates.today()
-						}
+						{
+							due: {
+								$lt: Dates.today()
+							}
 					},
 				]
-			}, {
-				sort: {
-					start: -1,
-					createdAt: -1,
-				}
-			});
+				}, {
+					sort: {
+						start: -1,
+						createdAt: -1,
+					}
+				});
+			}
 		case "today":
-			const today = Dates.today();
+			{
+				const today = Dates.today();
 
-			return Tasks.find({
-				$and: [
-					{
-						doneAt: false
+				return Tasks.find({
+					$and: [
+						{
+							doneAt: false
 					},
-					{
-						start: {
-							$lte: today
-						}
+						{
+							start: {
+								$lte: today
+							}
 					},
-					{
-						due: {
-							$gte: today
-						}
+						{
+							due: {
+								$gte: today
+							}
 					},
 			]
-			}, {
-				sort: {
-					priority: 1,
-					start: -1,
-					createdAt: -1,
-				}
-			});
+				}, {
+					sort: {
+						priority: 1,
+						start: -1,
+						createdAt: -1,
+					}
+				});
+			}
 		case "tomorrow":
-			return Tasks.find({
-				$and: [
-					{
-						doneAt: false
+			{
+				return Tasks.find({
+					$and: [
+						{
+							doneAt: false
 					},
-					{
-						start: Dates.tomorrow()
+						{
+							start: Dates.tomorrow()
 					},
 				]
-			}, {
-				sort: {
-					priority: 1,
-					start: -1,
-					createdAt: -1,
-				}
-			});
+				}, {
+					sort: {
+						priority: 1,
+						start: -1,
+						createdAt: -1,
+					}
+				});
+			}
 		case "thisweek":
-			const thisWeek = Dates.thisWeek();
-			if (thisWeek === false) {
-				return null;
-			}
+			{
+				const thisWeek = Dates.thisWeek();
+				if (thisWeek === false) {
+					return null;
+				}
 
-			return Tasks.find({
-				$and: [
-					{
-						doneAt: false
+				return Tasks.find({
+					$and: [
+						{
+							doneAt: false
 					},
-					{
-						start: {
-							$gte: thisWeek
-						}
+						{
+							start: {
+								$gte: thisWeek
+							}
 					},
-					{
-						start: {
-							$lt: Dates.nextWeek()
-						}
+						{
+							start: {
+								$lt: Dates.nextWeek()
+							}
 					},
 				]
-			}, {
-				sort: {
-					priority: 1,
-					start: -1,
-					createdAt: -1,
-				}
-			});
-		case "nextweek":
-			return Tasks.find({
-				$and: [
-					{
-						doneAt: false
-					},
-					{
-						start: {
-							$gte: Dates.nextWeek()
-						}
-					},
-					{
-						start: {
-							$lt: Dates.thisMonth()
-						}
-					},
-			]
-			}, {
-				sort: {
-					priority: 1,
-					start: -1,
-					createdAt: -1,
-				}
-			});
-		case "thismonth":
-			const thisMonth = Dates.thisMonth();
-			if (thisMonth === false) {
-				return null;
+				}, {
+					sort: {
+						priority: 1,
+						start: -1,
+						createdAt: -1,
+					}
+				});
 			}
+		case "nextweek":
+			{
+				const thisMonth = Dates.thisMonth();
+				return Tasks.find({
+					$and: [
+						{
+							doneAt: false
+					},
+						{
+							start: {
+								$gte: Dates.nextWeek()
+							}
+					},
+						{
+							start: {
+								$lt: (thisMonth === false ? Dates.nextMonth() : thisMonth)
+							}
+					},
+			]
+				}, {
+					sort: {
+						priority: 1,
+						start: -1,
+						createdAt: -1,
+					}
+				});
+			}
+		case "thismonth":
+			{
+				const thisMonth = Dates.thisMonth();
+				if (thisMonth === false) {
+					return null;
+				}
 
-			return Tasks.find({
-				$and: [
-					{
-						doneAt: false
+				return Tasks.find({
+					$and: [
+						{
+							doneAt: false
 					},
-					{
-						start: {
-							$gte: thisMonth
-						}
+						{
+							start: {
+								$gte: thisMonth
+							}
 					},
-					{
-						start: {
-							$lt: Dates.nextMonth()
-						}
+						{
+							start: {
+								$lt: Dates.nextMonth()
+							}
 					},
 			]
-			}, {
-				sort: {
-					priority: 1,
-					priority: 1,
-					start: -1,
-					createdAt: -1,
-				}
-			});
+				}, {
+					sort: {
+						priority: 1,
+						start: -1,
+						createdAt: -1,
+					}
+				});
+			}
 		case "nextmonth":
-			return Tasks.find({
-				$and: [
-					{
-						doneAt: false
+			{
+				return Tasks.find({
+					$and: [
+						{
+							doneAt: false
 					},
-					{
-						start: {
-							$gte: Dates.nextMonth()
-						}
+						{
+							start: {
+								$gte: Dates.nextMonth()
+							}
 					},
-					{
-						start: {
-							$lt: Dates.later()
-						}
+						{
+							start: {
+								$lt: Dates.later()
+							}
 					},
 			]
-			}, {
-				sort: {
-					priority: 1,
-					start: -1,
-					createdAt: -1,
-				}
-			});
+				}, {
+					sort: {
+						priority: 1,
+						start: -1,
+						createdAt: -1,
+					}
+				});
+			}
 		case "later":
-			return Tasks.find({
-				$and: [
-					{
-						doneAt: false
+			{
+				return Tasks.find({
+					$and: [
+						{
+							doneAt: false
 					},
-					{
-						start: {
-							$gte: Dates.later()
-						}
+						{
+							start: {
+								$gte: Dates.later()
+							}
 					},
 			]
-			}, {
-				sort: {
-					priority: 1,
-					start: -1,
-					createdAt: -1,
-				}
-			});
+				}, {
+					sort: {
+						priority: 1,
+						start: -1,
+						createdAt: -1,
+					}
+				});
+			}
 		default:
 			// nothing
 	}
