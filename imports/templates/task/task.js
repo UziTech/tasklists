@@ -125,13 +125,13 @@ Template.task.events({
 					start = Dates.tomorrow();
 					break;
 				case "thisweek":
-					start = Dates.thisWeek() || Dates.nextWeek();
+					start = Dates.thisWeek() || Dates.tomorrow();
 					break;
 				case "nextweek":
 					start = Dates.nextWeek();
 					break;
 				case "thismonth":
-					start = Dates.thisMonth() || Dates.nextMonth();
+					start = Dates.thisMonth() || Dates.nextWeek();
 					break;
 				case "nextmonth":
 					start = Dates.nextMonth();
