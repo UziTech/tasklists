@@ -2,8 +2,9 @@
 	cursor: pointer;
 	flex: 1 0 50px;
 	border-top: 1px solid #333;
-	border-right: 1px solid #333;
-	//writing-mode: vertical-rl;
+	@media (min-width: 601px) {
+		border-right: 1px solid #333;
+	}
 	box-sizing: border-box;
 	display: flex;
 	overflow: hidden;
@@ -16,8 +17,10 @@
 		h1 {
 			margin: 7px;
 			text-transform: capitalize;
-			transform: rotate(90deg);
-			transform-origin: 0.5em center 0;
+			@media (min-width: 601px) {
+				transform: rotate(90deg);
+				transform-origin: 0.5em center 0;
+			}
 			white-space: nowrap;
 			position: absolute;
 		}
