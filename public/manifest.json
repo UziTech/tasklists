@@ -1,0 +1,11 @@
+{
+	"background_color": "#ffffff",
+	"name": "tasklists",
+	"short_name": "tasklists",
+	"display": "standalone",
+	"icons": [{
+		"src": "/icon_144.png",
+		"sizes": "144x144",
+		"type": "image/png"
+	}]
+}
