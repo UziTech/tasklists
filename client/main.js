@@ -34,6 +34,10 @@ function addA11y() {
 	});
 }
 
+Meteor.startup(_ => {
+	navigator.serviceWorker.register('/sw.js').then().catch(error => console.log(error));
+});
+
 Template._loginButtonsLoggedOutSingleLoginButton.onRendered(addA11y);
 Template._loginButtonsLoggedInSingleLogoutButton.onRendered(addA11y);
 // might need these later
