@@ -16,6 +16,7 @@ header {
 
 	#login-buttons {
 		flex: 0 0 auto;
+		margin: 0 2px;
 		height: 30px;
 
 		.login-text-and-button {
@@ -64,13 +65,11 @@ main {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	@media (min-width: 601px) {
-		overflow-x: auto;
-		overflow-y: hidden;
-	}
-	@media (max-width: 600px) {
-		overflow-x: hidden;
-		overflow-y: auto;
-		flex-direction: column;
-	}
+	overflow-x: auto;
+	overflow-y: hidden;
+	// @media (max-width: 400px) {
+	// 	overflow-x: hidden;
+	// 	overflow-y: auto;
+	// 	flex-direction: column;
+	// }
 }
