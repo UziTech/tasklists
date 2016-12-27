@@ -7,8 +7,8 @@ import Dates from "../../util/Dates";
 import "./task.html";
 import "./task.scss";
 
-function allowIBtags(html) {
-	return sanitizeHtml(html, ["i", "b"]);
+function allowIBUtags(html) {
+	return sanitizeHtml(html, ["i", "em", "b", "strong", "u"]);
 }
 /**
  * Sanatize html tags
@@ -40,7 +40,7 @@ Template.task.onRendered(function () {
 
 	// set the text to the data-name attribute value
 	// which is the reactive name
-	$name.html(allowIBtags($name.data().name));
+	$name.html(allowIBUtags($name.data().name));
 
 	$name.toTextarea({
 		allowHTML: true,
@@ -59,14 +59,14 @@ Template.task.helpers({
 		if (!$name.is(":focus")) {
 
 			// set .name text to this.name
-			$name.html(allowIBtags(this.name));
-		} else if (this.lastClientId !== Session.get("clientId") && allowIBtags(this.name) !== $name.html()) {
+			$name.html(allowIBUtags(this.name));
+		} else if (this.lastClientId !== Session.get("clientId") && allowIBUtags(this.name) !== $name.html()) {
 
 			// blur .name and set text to this.name
-			$name.blur().html(allowIBtags(this.name));
+			$name.blur().html(allowIBUtags(this.name));
 		}
 
-		return allowIBtags(this.name);
+		return allowIBUtags(this.name);
 	}
 });
 
@@ -158,7 +158,7 @@ Template.task.events({
 		}
 		const task = this;
 		this.changeTimeout = Meteor.setTimeout(function () {
-			Meteor.call("tasks.edit", task._id, allowIBtags(e.target.innerHTML), Session.get("clientId"));
+			Meteor.call("tasks.edit", task._id, allowIBUtags(e.target.innerHTML), Session.get("clientId"));
 		}, 350);
 	},
 });
