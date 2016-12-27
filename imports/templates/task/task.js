@@ -33,15 +33,6 @@ Meteor.startup(function () {
 	// store clientId for task.lastClientId to prevent multiple people editing the same task
 	Session.set("clientId", Random.id());
 
-	// load the toTextarea plugin
-	$.getScript("/js/jquery.toTextarea.js", function () {
-
-		// enable the plugin on .name elements that are already rendered
-		$(".task .name").toTextarea({
-			allowHTML: true,
-			allowImg: false,
-		});
-	});
 });
 
 Template.task.onRendered(function () {
@@ -51,13 +42,10 @@ Template.task.onRendered(function () {
 	// which is the reactive name
 	$name.html(allowIBtags($name.data().name));
 
-	// if toTextarea plugin is loaded enable it
-	if ($name.toTextarea) {
-		$name.toTextarea({
-			allowHTML: true,
-			allowImg: false,
-		});
-	}
+	$name.toTextarea({
+		allowHTML: true,
+		allowImg: false,
+	});
 });
 
 Template.task.helpers({

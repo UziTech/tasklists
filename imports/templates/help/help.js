@@ -57,24 +57,11 @@ function hideDialog() {
 	}
 }
 
-Meteor.startup(function () {
-	$.getScript("/js/jquery.disableTabindex.js", function () {
-
-		// if $dialog is already rendered
-		if ($dialog) {
-			$dialog.disableTabindex();
-		}
-	});
-});
-
 Template.help.onRendered(function () {
 	$overlay = this.$(".overlay");
 	$dialog = this.$(".dialog");
 
-	// if .disableTabindex is already loaded
-	if ($dialog.disableTabindex) {
-		$dialog.disableTabindex();
-	}
+	$dialog.disableTabindex();
 });
 
 Template.help.events({
