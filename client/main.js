@@ -35,7 +35,11 @@ function addA11y() {
 }
 
 Meteor.startup(_ => {
-	navigator.serviceWorker.register('/sw.js').then().catch(error => console.log(error));
+	if (navigator.serviceWorker) {
+		navigator.serviceWorker.register("/sw.js").then().catch(function (error) {
+			console.log(error);
+		});
+	}
 });
 
 Template._loginButtonsLoggedOutSingleLoginButton.onRendered(addA11y);
