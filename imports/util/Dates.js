@@ -8,6 +8,27 @@ export function getDay(date) {
 	return new Date(year, month, day);
 }
 
+export function getDateFromList(list) {
+	switch (list) {
+		case "today":
+			return today();
+		case "tomorrow":
+			return tomorrow();
+		case "thisweek":
+			return thisWeek() || tomorrow();
+		case "nextweek":
+			return nextWeek();
+		case "thismonth":
+			return thisMonth() || nextWeek();
+		case "nextmonth":
+			return nextMonth();
+		case "later":
+			return later();
+		default:
+			// do nothing
+	}
+}
+
 export function addDays(date, days) {
 	const d = new Date(date);
 	d.setDate(d.getDate() + days);

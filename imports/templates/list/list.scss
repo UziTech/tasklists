@@ -64,4 +64,13 @@
 			display: block;
 		}
 	}
+
+	.task.new {
+		display: none;
+	}
+
+	&:hover .task.new,
+	.task.new.focus {
+		display: block;
+	}
 }

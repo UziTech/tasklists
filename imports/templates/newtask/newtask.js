@@ -1,11 +1,11 @@
 import { Meteor } from "meteor/meteor";
-import { Random } from "meteor/random";
 import { Session } from "meteor/session";
 import { Template } from "meteor/templating";
 import Dates from "../../util/Dates";
+import Cursor from "../../util/Cursor";
 
-import "./task.html";
-import "./task.scss";
+import "./newtask.html";
+import "./newtask.scss";
 
 function allowIBUtags(html) {
 	return sanitizeHtml(html, ["i", "em", "b", "strong", "u"]);
@@ -28,19 +28,8 @@ function sanitizeHtml(html, allowedTags) {
 	});
 }
 
-Meteor.startup(function () {
-
-	// store clientId for task.lastClientId to prevent multiple people editing the same task
-	Session.set("clientId", Random.id());
-
-});
-
-Template.task.onRendered(function () {
+Template.newtask.onRendered(function () {
 	const $name = $(this.find(".name"));
-
-	// set the text to the data-name attribute value
-	// which is the reactive name
-	$name.html(allowIBUtags($name.data().name));
 
 	$name.toTextarea({
 		allowHTML: true,
@@ -48,45 +37,19 @@ Template.task.onRendered(function () {
 	});
 });
 
-Template.task.helpers({
-	isDone() {
-		return !!this.doneAt;
-	},
-	dataName() {
-
-		// check if this .name has focus
-		const $name = $("#" + this._id + " .name");
-		if (!$name.is(":focus")) {
-
-			// set .name text to this.name
-			$name.html(allowIBUtags(this.name));
-		} else if (this.lastClientId !== Session.get("clientId") && allowIBUtags(this.name) !== $name.html()) {
-
-			// blur .name and set text to this.name
-			$name.blur().html(allowIBUtags(this.name));
-		}
-
-		return allowIBUtags(this.name);
+Template.newtask.helpers({
+	defaultColor() {
+		return Meteor.user().profile.defaultColor;
 	}
 });
 
-Template.task.events({
+Template.newtask.events({
 	"click .ellip" (e) {
 		const $controls = $(e.target).closest(".controls");
 		const isOpen = $controls.hasClass("open");
 		$(".open").removeClass("open");
 		if (!isOpen) {
 			$controls.addClass("open");
-		}
-	},
-	"click .move" (e) {
-		const $controls = $(e.target).closest(".controls");
-		const $moveButtons = $controls.find(".move-buttons");
-		const isOpen = $moveButtons.hasClass("open");
-		$(".open").removeClass("open");
-		$controls.addClass("open");
-		if (!isOpen) {
-			$moveButtons.addClass("open");
 		}
 	},
 	"click .color" (e) {
@@ -99,21 +62,14 @@ Template.task.events({
 			$colorButtons.addClass("open");
 		}
 	},
-	"click .done" () {
-		Meteor.call("tasks.done", this._id, !this.doneAt);
-	},
-	"click .move-button" (e) {
-		if (!this.done) {
-			const start = Dates.getDateFromList(e.target.dataset.list);
-			const due = Dates.addDays(this.due, Dates.daysDiff(start, this.start));
-			Meteor.call("tasks.move", this._id, start, due);
-		}
-	},
-	"click .delete" () {
-		Meteor.call("tasks.delete", this._id);
-	},
 	"click .color-button" (e) {
-		Meteor.call("tasks.color", this._id, e.target.dataset.color);
+		Meteor.call("users.profile.defaultColor", e.target.dataset.color);
+	},
+	"focus .name" (e) {
+		$(e.target).closest(".task.new").addClass("focus");
+	},
+	"blur .name" (e) {
+		$(e.target).closest(".task.new").removeClass("focus");
 	},
 	"input .name" (e) {
 
@@ -131,7 +87,29 @@ Template.task.events({
 		}
 		const task = this;
 		this.changeTimeout = Meteor.setTimeout(function () {
-			Meteor.call("tasks.edit", task._id, allowIBUtags(e.target.innerHTML), Session.get("clientId"));
+			const name = allowIBUtags(e.target.innerHTML);
+			if (!name) {
+				return;
+			}
+			const start = Dates.getDateFromList(e.target.dataset.list);
+			const due = Dates.addDays(start, 1);
+			const priority = 1;
+			const project = "";
+			const color = Meteor.user().profile.defaultColor;
+			const list = e.target.dataset.list;
+
+			const rect = Cursor.getSelectionRect();
+			e.target.innerHTML = "";
+
+			Meteor.call("tasks.insert", name, start, due, priority, project, color, function (err, insertId) {
+				if (err) {
+					console.log(err);
+					e.target.innerHTML = name;
+					return;
+				}
+				Cursor.setCursorAtPoint(rect.left, rect.top);
+				// FIXME: won't work with selection
+			});
 		}, 350);
 	},
 });

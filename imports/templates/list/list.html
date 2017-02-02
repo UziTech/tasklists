@@ -7,6 +7,9 @@
 			{{#each tasks}}
 				{{> task}}
 			{{/each}}
+			{{#if showNewTask}}
+				{{> newtask list=name}}
+			{{/if}}
 		</div>
 	</div>
 </template>

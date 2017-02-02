@@ -5,6 +5,7 @@ import Dates from "../../util/Dates";
 import "./list.html";
 import "./list.scss";
 import "../task/task";
+import "../newtask/newtask";
 
 function titleToName(title) {
 	return title.toLowerCase().replace(/\W/g, "");
@@ -69,7 +70,7 @@ function getTasks(title) {
 					sort: {
 						priority: 1,
 						start: -1,
-						createdAt: -1,
+						createdAt: 1,
 					}
 				});
 			}
@@ -88,7 +89,7 @@ function getTasks(title) {
 					sort: {
 						priority: 1,
 						start: -1,
-						createdAt: -1,
+						createdAt: 1,
 					}
 				});
 			}
@@ -119,7 +120,7 @@ function getTasks(title) {
 					sort: {
 						priority: 1,
 						start: -1,
-						createdAt: -1,
+						createdAt: 1,
 					}
 				});
 			}
@@ -146,7 +147,7 @@ function getTasks(title) {
 					sort: {
 						priority: 1,
 						start: -1,
-						createdAt: -1,
+						createdAt: 1,
 					}
 				});
 			}
@@ -177,7 +178,7 @@ function getTasks(title) {
 					sort: {
 						priority: 1,
 						start: -1,
-						createdAt: -1,
+						createdAt: 1,
 					}
 				});
 			}
@@ -203,7 +204,7 @@ function getTasks(title) {
 					sort: {
 						priority: 1,
 						start: -1,
-						createdAt: -1,
+						createdAt: 1,
 					}
 				});
 			}
@@ -224,7 +225,7 @@ function getTasks(title) {
 					sort: {
 						priority: 1,
 						start: -1,
-						createdAt: -1,
+						createdAt: 1,
 					}
 				});
 			}
@@ -236,6 +237,9 @@ function getTasks(title) {
 Template.list.helpers({
 	name() {
 		return titleToName(this.title);
+	},
+	showNewTask() {
+		return !["Done", "Late"].includes(this.title);
 	},
 	listActive() {
 		const tasks = getTasks(this.title);

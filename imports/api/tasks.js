@@ -29,7 +29,7 @@ Meteor.methods({
 			throw new Meteor.Error("not-authorized");
 		}
 
-		Tasks.insert({
+		return Tasks.insert({
 			name,
 			start,
 			due,
