@@ -149,6 +149,11 @@ if (Meteor.isClient) {
 							const $task = $target.closest(".task").next();
 							if ($task.length > 0) {
 								Cursor.setCursorOnFirstLine($task.find(".name")[0]);
+							} else if ($target.closest(".task").hasClass("new")) {
+								$target.blur().focus();
+								Meteor.defer(function () {
+									Cursor.scrollIntoViewIfNeeded($target[0].closest(".task"));
+								});
 							}
 						}
 					} else if ($target.is(".controls .move")) {

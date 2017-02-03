@@ -1,3 +1,40 @@
 .task.new {
+	.color-buttons {
+		margin-right: 5px;
 
+		.color {
+			cursor: pointer;
+			text-align: center;
+			width: 20px;
+			height: 20px;
+			padding: 0;
+			border: 2px solid #330;
+			border-radius: 3px;
+			background-image: url("/images/color-button.png");
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		.color-button {
+			cursor: pointer;
+			width: 20px;
+			height: 20px;
+			display: none;
+			border: 1px solid #fff;
+			border-bottom: 0;
+
+			&:last-child {
+				border-bottom: 1px solid #fff;
+			}
+
+		}
+
+		&.open {
+			z-index: 10;
+
+			button {
+				display: block;
+			}
+		}
+	}
 }

@@ -3,30 +3,10 @@ import { Random } from "meteor/random";
 import { Session } from "meteor/session";
 import { Template } from "meteor/templating";
 import Dates from "../../util/Dates";
+import Html from "../../util/Html";
 
 import "./task.html";
 import "./task.scss";
-
-function allowIBUtags(html) {
-	return sanitizeHtml(html, ["i", "em", "b", "strong", "u"]);
-}
-/**
- * Sanatize html tags
- * @param  {string} html HTML to sanitize
- * @param  {string|string[]} allowedTags The tags to allow in the HTML
- * @return {string} The HTML with the start of unwanted tags changed to &lt;
- */
-function sanitizeHtml(html, allowedTags) {
-	if (!(allowedTags instanceof Array)) {
-		allowedTags = (typeof allowedTags === "string" ? allowedTags.split(" ") : []);
-	}
-	return html.replace(/(<)(\/?)(\w*)/g, function (match, p1, p2, p3) {
-		if (!allowedTags.includes(p3)) {
-			p1 = "&lt;";
-		}
-		return p1 + p2 + p3;
-	});
-}
 
 Meteor.startup(function () {
 
@@ -40,7 +20,7 @@ Template.task.onRendered(function () {
 
 	// set the text to the data-name attribute value
 	// which is the reactive name
-	$name.html(allowIBUtags($name.data().name));
+	$name.html(Html.allowIBUtags($name.data().name));
 
 	$name.toTextarea({
 		allowHTML: true,
@@ -59,14 +39,14 @@ Template.task.helpers({
 		if (!$name.is(":focus")) {
 
 			// set .name text to this.name
-			$name.html(allowIBUtags(this.name));
-		} else if (this.lastClientId !== Session.get("clientId") && allowIBUtags(this.name) !== $name.html()) {
+			$name.html(Html.allowIBUtags(this.name));
+		} else if (this.lastClientId !== Session.get("clientId") && Html.allowIBUtags(this.name) !== $name.html()) {
 
 			// blur .name and set text to this.name
-			$name.blur().html(allowIBUtags(this.name));
+			$name.blur().html(Html.allowIBUtags(this.name));
 		}
 
-		return allowIBUtags(this.name);
+		return Html.allowIBUtags(this.name);
 	}
 });
 
@@ -131,7 +111,7 @@ Template.task.events({
 		}
 		const task = this;
 		this.changeTimeout = Meteor.setTimeout(function () {
-			Meteor.call("tasks.edit", task._id, allowIBUtags(e.target.innerHTML), Session.get("clientId"));
+			Meteor.call("tasks.edit", task._id, Html.allowIBUtags(e.target.innerHTML), Session.get("clientId"));
 		}, 350);
 	},
 });
