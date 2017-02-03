@@ -1,5 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
+import { $ } from "meteor/jquery";
 
 import "../imports/templates/bulkEdit/bulkEdit";
 import "../imports/templates/help/help";

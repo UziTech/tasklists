@@ -1,4 +1,8 @@
+import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
+import { _ } from "meteor/underscore";
+import { $ } from "meteor/jquery";
+
 import { Tasks } from "../../api/tasks";
 import Dates from "../../util/Dates";
 
@@ -253,8 +257,29 @@ Template.list.helpers({
 		return getTasks(this.title);
 	},
 });
-
+var blur = 0, focus = 0;
 Template.list.events({
+	"focus *": _.debounce((e) => {
+		console.debug("focus", ++focus, e.target);
+		const $list = $(e.target).closest(".list");
+		if ($list.data().timer) {
+			Meteor.clearTimeout($list.data().timer);
+			$list.data().timer = null;
+		}
+		$list.addClass("is-focused");
+	}),
+	"blur *": _.debounce((e) => {
+		console.debug("blur", ++blur, e.target);
+		const $list = $(e.target).closest(".list");
+		if (!$list.data().timer) {
+			$list.data({
+				timer: Meteor.setTimeout(function () {
+					$list.data().timer = null;
+					$list.removeClass("is-focused");
+				}, 0)
+			});
+		}
+	}),
 	"click" (e) {
 		const $list = $(e.target).closest(".list");
 		const isOpen = $list.hasClass("user-open") || ($list.hasClass("active") && !$list.hasClass("user-closed"));

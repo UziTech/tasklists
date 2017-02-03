@@ -69,8 +69,8 @@
 		display: none;
 	}
 
-	&:hover .task.new,
-	.task.new.focus {
+	&.is-focused .task.new,
+	&:hover .task.new {
 		display: block;
 	}
 }

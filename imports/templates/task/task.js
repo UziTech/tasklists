@@ -2,6 +2,8 @@ import { Meteor } from "meteor/meteor";
 import { Random } from "meteor/random";
 import { Session } from "meteor/session";
 import { Template } from "meteor/templating";
+import { $ } from "meteor/jquery";
+
 import Dates from "../../util/Dates";
 import Html from "../../util/Html";
 

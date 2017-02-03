@@ -1,6 +1,8 @@
 import { Meteor } from "meteor/meteor";
 import { Session } from "meteor/session";
 import { Template } from "meteor/templating";
+import { $ } from "meteor/jquery";
+
 import Dates from "../../util/Dates";
 import Cursor from "../../util/Cursor";
 import Html from "../../util/Html";
@@ -37,12 +39,7 @@ Template.newtask.events({
 	"click .color-button" (e) {
 		Meteor.call("users.profile.defaultColor", e.target.dataset.color);
 	},
-	"focus .name" (e) {
-		$(e.target).closest(".task.new").addClass("focus");
-	},
 	"blur .name" (e) {
-		$(e.target).closest(".task.new").removeClass("focus");
-
 		const name = Html.allowIBUtags(e.target.innerHTML);
 		e.target.innerHTML = "";
 
