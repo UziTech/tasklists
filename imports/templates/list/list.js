@@ -261,22 +261,11 @@ Template.list.helpers({
 Template.list.events({
 	"focus *": _.debounce((e) => {
 		const $list = $(e.target).closest(".list");
-		if ($list.data().timer) {
-			Meteor.clearTimeout($list.data().timer);
-			$list.data().timer = null;
-		}
 		$list.addClass("is-focused");
 	}),
 	"blur *": _.debounce((e) => {
 		const $list = $(e.target).closest(".list");
-		if (!$list.data().timer) {
-			$list.data({
-				timer: Meteor.setTimeout(function () {
-					$list.data().timer = null;
-					$list.removeClass("is-focused");
-				}, 0)
-			});
-		}
+		$list.removeClass("is-focused");
 	}),
 	"click" (e) {
 		const $list = $(e.target).closest(".list");

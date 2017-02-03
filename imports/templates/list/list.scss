@@ -66,11 +66,12 @@
 	}
 
 	.task.new {
-		display: none;
+		opacity: 0;
+		transition: opacity 0.2s;
 	}
 
 	&.is-focused .task.new,
 	&:hover .task.new {
-		display: block;
+		opacity: 1;
 	}
 }
