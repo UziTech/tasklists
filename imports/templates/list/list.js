@@ -257,10 +257,9 @@ Template.list.helpers({
 		return getTasks(this.title);
 	},
 });
-var blur = 0, focus = 0;
+
 Template.list.events({
 	"focus *": _.debounce((e) => {
-		console.debug("focus", ++focus, e.target);
 		const $list = $(e.target).closest(".list");
 		if ($list.data().timer) {
 			Meteor.clearTimeout($list.data().timer);
@@ -269,7 +268,6 @@ Template.list.events({
 		$list.addClass("is-focused");
 	}),
 	"blur *": _.debounce((e) => {
-		console.debug("blur", ++blur, e.target);
 		const $list = $(e.target).closest(".list");
 		if (!$list.data().timer) {
 			$list.data({
